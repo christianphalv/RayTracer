@@ -55,6 +55,8 @@ Vector3 operator*(float c, Vector3 v);
 // Dot product
 float operator*(Vector3 u, Vector3 v);
 
+Vector3 cross(Vector3 u, Vector3 v);
+
 // Scalar division
 Vector3 operator/(Vector3 v, float c);
 

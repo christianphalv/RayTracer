@@ -44,9 +44,9 @@ void Image::generatePPM(std::string filename) {
     // Write pixel colors
     for (int j = 0; j < height; j++) {
         for (int i = 0; i < width; i++) {
-            outputFile << static_cast<int> (this->image[i][j].getX() * MAXPIXELVAL) << " " 
-            << static_cast<int> (this->image[i][j].getY() * MAXPIXELVAL)  << " " 
-            << static_cast<int> (this->image[i][j].getZ() * MAXPIXELVAL)  << "\n";
+            outputFile << static_cast<int>(this->image[i][j].getX() * MAXPIXELVAL) << " " 
+            << static_cast<int>(this->image[i][j].getY() * MAXPIXELVAL)  << " " 
+            << static_cast<int>(this->image[i][j].getZ() * MAXPIXELVAL)  << "\n";
         }
     }
 

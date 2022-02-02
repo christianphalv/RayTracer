@@ -6,28 +6,29 @@
 #include <string>
 #include <vector>
 
+#include "Camera.h"
 #include "Object.h"
 #include "Sphere.h"
 #include "Vector3.h"
+
+#define PI 3.14159265
 
 class Scene {
     public:
         Scene(std::string inputFilename);
 
-        Vector3 getEye();
-        Vector3 getViewDirection();
-        Vector3 getUpDirection();
+        Camera getCamera();
         float getVerticalFov();
+        float getHorizontalFov();
         int getImageWidth();
         int getImageHeight();
         Vector3 getBackgroundColor();
         std::vector<Object*> getObjects();
 
     private:
-        Vector3 eye;
-        Vector3 viewDir;
-        Vector3 upDir;
+        Camera cam;
         float vfov;
+        float hfov;
         int imageWidth;
         int imageHeight;
         Vector3 bkgColor;
@@ -37,5 +38,8 @@ class Scene {
         float safeStreamFloat(std::istringstream& iss, float min, float max);
         int safeStreamInt(std::istringstream& iss, int min, int max);
         Vector3 safeStreamVector3(std::istringstream& iss, float min, float max);
+        float radiansToDegrees(float radians);
+        float degreesToRadians(float degrees);
+
 
 };

@@ -75,6 +75,13 @@ float operator*(Vector3 u, Vector3 v) {
     return (u.getX() * v.getX()) + (u.getY() * v.getY()) + (u.getZ() * v.getZ());
 }
 
+Vector3 cross(Vector3 u, Vector3 v) {
+    float w_x = (u.getY() * v.getZ()) - (u.getZ() * v.getY());
+    float w_y = (u.getZ() * v.getX()) - (u.getX() * v.getZ());
+    float w_z = (u.getX() * v.getY()) - (u.getY() * v.getX());
+    return Vector3(w_x, w_y, w_z);
+}
+
 Vector3 operator/(Vector3 v, float c) {
     return Vector3(v.getX() / c, v.getY() / c, v.getZ() / c);
 }

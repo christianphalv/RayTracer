@@ -6,7 +6,11 @@ Scene::Scene(std::string inputFilename) {
     float min = -10000;
     float max = 10000;
     this->mtlColor = Vector3(0, 0, 0);
-    
+
+    // Default camera variables
+    Vector3 eye = Vector3(0, 0, 0);
+    Vector3 viewDir = Vector3(1, 0, 0);
+    Vector3 upDir = Vector3(0, 1, 0);
 
     // Open stream to input file
     std::ifstream inputFile(inputFilename, std::ios::in);
@@ -25,13 +29,13 @@ Scene::Scene(std::string inputFilename) {
 
         // Stream rest of line based on keyword
         if (keyword.compare("eye") == 0) {
-            this->eye = safeStreamVector3(iss, min, max);
+            eye = safeStreamVector3(iss, min, max);
 
         } else if (keyword.compare("viewdir") == 0) {
-            this->viewDir = safeStreamVector3(iss, min, max);
+            viewDir = safeStreamVector3(iss, min, max);
 
         } else if (keyword.compare("updir") == 0) {
-            this->upDir = safeStreamVector3(iss, min, max);
+            upDir = safeStreamVector3(iss, min, max);
 
         } else if (keyword.compare("vfov") == 0) {
             this->vfov = safeStreamFloat(iss, 0, 180);
@@ -50,22 +54,25 @@ Scene::Scene(std::string inputFilename) {
             this->objects.push_back(new Sphere(safeStreamVector3(iss, min, max), safeStreamFloat(iss, min, max), this->mtlColor));
         } 
     }
+
+    // Instantiate camera
+    this->cam = Camera(eye, viewDir, upDir);
+
+    // Calculate horizontal fov from vertical fov and image dimensions
+    this->hfov = 2.0 * atan((static_cast<float>(this->imageWidth) / static_cast<float>(this->imageHeight)) * tan(degreesToRadians(this->vfov) / 2.0));
 }
 
-Vector3 Scene::getEye() {
-    return this->eye;
+Camera Scene::getCamera() {
+    return this->cam;
 }
 
-Vector3 Scene::getViewDirection() {
-    return this->viewDir;
-}
-
-Vector3 Scene::getUpDirection() {
-    return this->upDir;
-}
 
 float Scene::getVerticalFov() {
     return this->vfov;
+}
+
+float Scene::getHorizontalFov() {
+    return this->hfov;
 }
 
 int Scene::getImageWidth() {
@@ -159,4 +166,12 @@ Vector3 Scene::safeStreamVector3(std::istringstream& iss, float min, float max) 
     }
 
     return Vector3(x, y, z);
+}
+
+float Scene::radiansToDegrees(float radians) {
+    return radians * (180 / PI);
+}
+
+float Scene::degreesToRadians(float degrees) {
+    return degrees * (PI / 180);
 }
