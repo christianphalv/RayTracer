@@ -1,0 +1,84 @@
+#include "../include/Vector3.h"
+
+// Constructors
+Vector3::Vector3() {
+    this->x = 0;
+    this->y = 0;
+    this->z = 0;
+}
+
+Vector3::Vector3(float x, float y, float z) {
+    this->x = x;
+    this->y = y;
+    this->z = z;
+}
+
+void Vector3::info() {
+    std::cout << this->x << ", " << this->y << ", " << this->z << "\n";
+}
+
+Vector3 Vector3::copy() {
+    return Vector3(this->x, this->y, this->z);
+}
+
+float Vector3::length() {
+    return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
+}
+
+Vector3 Vector3::normalized() {
+    return this->copy() / this->length();
+}
+
+// Getters
+float Vector3::getX() {
+    return this->x;
+}
+
+float Vector3::getY() {
+    return this->y;
+}
+
+float Vector3::getZ() {
+    return this->z;
+}
+
+// Setters
+void Vector3::setX(float x) {
+    this->x = x;
+}
+
+void Vector3::setY(float y) {
+    this->y = y;
+}
+
+void Vector3::setZ(float z) {
+    this->z = z;
+}
+
+Vector3 operator+(Vector3 u, Vector3 v) {
+    return Vector3(u.getX() + v.getX(), u.getY() + v.getY(), u.getZ() + v.getZ());
+}
+
+Vector3 operator-(Vector3 u, Vector3 v) {
+    return Vector3(u.getX() - v.getX(), u.getY() - v.getY(), u.getZ() - v.getZ());
+}
+
+Vector3 operator*(Vector3 v, float c) {
+    return Vector3(v.getX() * c, v.getY() * c, v.getZ() * c);
+}
+
+Vector3 operator*(float c, Vector3 v) {
+    return Vector3(v.getX() * c, v.getY() * c, v.getZ() * c);
+}
+
+float operator*(Vector3 u, Vector3 v) {
+    return (u.getX() * v.getX()) + (u.getY() * v.getY()) + (u.getZ() * v.getZ());
+}
+
+Vector3 operator/(Vector3 v, float c) {
+    return Vector3(v.getX() / c, v.getY() / c, v.getZ() / c);
+}
+
+bool operator==(Vector3 u, Vector3 v) {
+    return (u.getX() == v.getX()) && (u.getY() == v.getY()) && (u.getZ() == v.getZ());
+}

@@ -1,0 +1,9 @@
+vfov 90
+imsize 1280 1024
+eye 10 20 30
+viewdir 1 2 3
+mtlcolor 1 0 0
+sphere 1 2 3 4
+sphere 4 3 2 1
+mtlcolor 0 1 0
+sphere 9 8 7 6
