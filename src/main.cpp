@@ -7,7 +7,9 @@ int main(int argc, char *argv[]) {
     std::string inputFileName;
 
     // Parse arguments
-    if (argc == 2) {
+    if (argc == 1) {
+        inputFileName = generateHelixInput();
+    } else if (argc == 2) {
         inputFileName = argv[1];
     } else {
         printf("ERROR: Invalid arguments.\n");
@@ -28,9 +30,9 @@ int main(int argc, char *argv[]) {
     // Extract camera from scene
     Camera* cam = scene->getCamera();
 
-    // Print field of view
-    printf("VFOV: %f\n", radiansToDegrees(scene->getVerticalFov()));
-    printf("HFOV: %f\n", radiansToDegrees(scene->getHorizontalFov()));
+    // Print field of view (FOR DEBUGGING)
+    //printf("VFOV: %f\n", radiansToDegrees(scene->getVerticalFov()));
+    //printf("HFOV: %f\n", radiansToDegrees(scene->getHorizontalFov()));
 
     // Calculate h and w
     float d = 1.0;
@@ -47,6 +49,8 @@ int main(int argc, char *argv[]) {
     Vector3 dh = (ur - ul) / (image.getWidth() - 1);
     Vector3 dv = (ll - ul) / (image.getHeight() - 1);
 
+    // Time raytracer
+    auto start = std::chrono::high_resolution_clock::now();
 
     for (int i = 0; i < image.getWidth(); i++) {
         for (int j = 0; j < image.getHeight(); j++) {
@@ -62,8 +66,31 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    // Print raytracer time
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    std::cout << duration.count() << " milleseconds" << "\n";
+
+    // Remove extension from input file
+    std::string outputFileName;
+    size_t extensionPoint = inputFileName.find_last_of(".");
+    if (extensionPoint == std::string::npos) {
+        outputFileName = inputFileName;
+    } else {
+        outputFileName = inputFileName.substr(0, extensionPoint);
+    }
+
+    // Remove path from input file
+    extensionPoint = outputFileName.find_last_of("/");
+    if (extensionPoint != std::string::npos) {
+        outputFileName = outputFileName.substr(extensionPoint + 1);
+    }
+
+    // Add output folder to output path
+    outputFileName = "output/" + outputFileName;
+
     // Generate PPM file
-    image.generatePPM("test");
+    image.generatePPM(outputFileName);
 
     return 0;
 }

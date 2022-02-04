@@ -13,7 +13,7 @@ Scene::Scene(std::string inputFilename) {
     Vector3 upDir = Vector3(0, 1, 0);
 
     // Open stream to input file
-    std::ifstream inputFile(inputFilename, std::ios::in);
+    std::ifstream inputFile(inputFilename, std::ios::in | std::ios::binary);
 
     // Read each line of the input file
     std::string line;

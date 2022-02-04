@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <cmath>
@@ -8,6 +9,7 @@
 
 #include "Camera.h"
 #include "Image.h"
+#include "InputGenerator.h"
 #include "MathUtils.h"
 #include "Scene.h"
 #include "Vector3.h"
