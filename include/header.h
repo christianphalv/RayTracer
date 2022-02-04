@@ -8,6 +8,7 @@
 
 #include "Camera.h"
 #include "Image.h"
+#include "MathUtils.h"
 #include "Scene.h"
 #include "Vector3.h"
 

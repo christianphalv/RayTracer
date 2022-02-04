@@ -38,7 +38,7 @@ Scene::Scene(std::string inputFilename) {
             upDir = safeStreamVector3(iss, min, max);
 
         } else if (keyword.compare("vfov") == 0) {
-            this->vfov = safeStreamFloat(iss, 0, 180);
+            this->vfov = degreesToRadians(safeStreamFloat(iss, 0, 180));
 
         } else if (keyword.compare("imsize") == 0) {
             this->imageWidth = safeStreamInt(iss, 0, max);
@@ -52,17 +52,19 @@ Scene::Scene(std::string inputFilename) {
 
         } else if (keyword.compare("sphere") == 0) {
             this->objects.push_back(new Sphere(safeStreamVector3(iss, min, max), safeStreamFloat(iss, min, max), this->mtlColor));
-        } 
+        } else if (keyword.compare("cylinder") == 0) {
+            this->objects.push_back(new Sphere(safeStreamVector3(iss, min, max), safeStreamFloat(iss, min, max), this->mtlColor));
+        }
     }
 
     // Instantiate camera
-    this->cam = Camera(eye, viewDir, upDir);
+    this->cam = new Camera(eye, viewDir, upDir);
 
     // Calculate horizontal fov from vertical fov and image dimensions
-    this->hfov = 2.0 * atan((static_cast<float>(this->imageWidth) / static_cast<float>(this->imageHeight)) * tan(degreesToRadians(this->vfov) / 2.0));
+    this->hfov = 2.0 * atan((static_cast<float>(this->imageWidth) / static_cast<float>(this->imageHeight)) * tan(this->vfov / 2.0));
 }
 
-Camera Scene::getCamera() {
+Camera* Scene::getCamera() {
     return this->cam;
 }
 
@@ -166,12 +168,4 @@ Vector3 Scene::safeStreamVector3(std::istringstream& iss, float min, float max) 
     }
 
     return Vector3(x, y, z);
-}
-
-float Scene::radiansToDegrees(float radians) {
-    return radians * (180 / PI);
-}
-
-float Scene::degreesToRadians(float degrees) {
-    return degrees * (PI / 180);
 }

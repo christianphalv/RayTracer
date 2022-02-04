@@ -2,7 +2,7 @@
 CXX := g++
 
 # Target executable
-TARGET := raytracer
+TARGET := raytracer.exe
 
 # Directories
 SRC_DIRS := ./src
@@ -43,4 +43,4 @@ clean-all:
 
 # Run executable
 run: $(BUILD_DIR)/$(TARGET)
-	$(BUILD_DIR)/$(TARGET) input/input.txt
+	$(BUILD_DIR)/$(TARGET) $(INPUT_DIR)/input.txt

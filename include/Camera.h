@@ -4,7 +4,6 @@
 
 class Camera {
     public:
-        Camera();
         Camera(Vector3 eye, Vector3 viewDirection, Vector3 upDirection);
 
         Vector3 getEye();

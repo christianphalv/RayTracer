@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "Camera.h"
+#include "MathUtils.h"
 #include "Object.h"
 #include "Sphere.h"
 #include "Vector3.h"
@@ -17,7 +18,7 @@ class Scene {
     public:
         Scene(std::string inputFilename);
 
-        Camera getCamera();
+        Camera* getCamera();
         float getVerticalFov();
         float getHorizontalFov();
         int getImageWidth();
@@ -26,7 +27,7 @@ class Scene {
         std::vector<Object*> getObjects();
 
     private:
-        Camera cam;
+        Camera* cam;
         float vfov;
         float hfov;
         int imageWidth;
@@ -38,8 +39,6 @@ class Scene {
         float safeStreamFloat(std::istringstream& iss, float min, float max);
         int safeStreamInt(std::istringstream& iss, int min, int max);
         Vector3 safeStreamVector3(std::istringstream& iss, float min, float max);
-        float radiansToDegrees(float radians);
-        float degreesToRadians(float degrees);
 
 
 };

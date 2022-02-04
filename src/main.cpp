@@ -19,25 +19,29 @@ int main(int argc, char *argv[]) {
 
     // Print info of each object in scene (FOR DEBUGGING)
     for (int i = 0; i < scene->getObjects().size(); i++) {
-        scene->getObjects()[i]->info();
+        //scene->getObjects()[i]->info();
     }
 
     // Instantiate image
     Image image = Image(scene->getImageWidth(), scene->getImageHeight());
 
     // Extract camera from scene
-    Camera cam = scene->getCamera();
+    Camera* cam = scene->getCamera();
+
+    // Print field of view
+    printf("VFOV: %f\n", radiansToDegrees(scene->getVerticalFov()));
+    printf("HFOV: %f\n", radiansToDegrees(scene->getHorizontalFov()));
 
     // Calculate h and w
-    float d = 1;
-    float h = 2 * d * tan(scene->getVerticalFov() / 2.0);
-    float w = 2 * d * tan(scene->getHorizontalFov() / 2.0);
+    float d = 1.0;
+    float h = 2.0 * d * tan(scene->getVerticalFov() / 2.0);
+    float w = 2.0 * d * tan(scene->getHorizontalFov() / 2.0);
 
     // Calculate the four corners of the viewing window
-    Vector3 ul = cam.getEye() + (d * cam.getViewDirection()) - (w / 2.0) * cam.getU() + (h / 2.0) * cam.getV();
-    Vector3 ur = cam.getEye() + (d * cam.getViewDirection()) + (w / 2.0) * cam.getU() + (h / 2.0) * cam.getV();
-    Vector3 ll = cam.getEye() + (d * cam.getViewDirection()) - (w / 2.0) * cam.getU() - (h / 2.0) * cam.getV();
-    Vector3 lr = cam.getEye() + (d * cam.getViewDirection()) + (w / 2.0) * cam.getU() - (h / 2.0) * cam.getV();
+    Vector3 ul = cam->getEye() + (d * cam->getViewDirection()) - (w / 2.0) * cam->getU() + (h / 2.0) * cam->getV();
+    Vector3 ur = cam->getEye() + (d * cam->getViewDirection()) + (w / 2.0) * cam->getU() + (h / 2.0) * cam->getV();
+    Vector3 ll = cam->getEye() + (d * cam->getViewDirection()) - (w / 2.0) * cam->getU() - (h / 2.0) * cam->getV();
+    Vector3 lr = cam->getEye() + (d * cam->getViewDirection()) + (w / 2.0) * cam->getU() - (h / 2.0) * cam->getV();
 
     // Calculate pixel-ray offsets
     Vector3 dh = (ur - ul) / (image.getWidth() - 1);
@@ -49,11 +53,10 @@ int main(int argc, char *argv[]) {
 
             // Calculate pixel-ray
             Vector3 pixelPoint = ul + (dh * static_cast<float>(i)) + (dv * static_cast<float>(j));
-            Vector3 rayDirection = pixelPoint - cam.getEye();
-            Ray ray = Ray(cam.getEye(), rayDirection);
+            Vector3 rayDirection = pixelPoint - cam->getEye();
+            Ray ray = Ray(cam->getEye(), rayDirection);
 
-            traceRay(ray, scene);
-
+            // Trace ray and set pixel to color
             Vector3 color = traceRay(ray, scene);
             image.setPixel(i, j, color);
         }
