@@ -3,7 +3,7 @@
 std::string generateHelixInput() {
 
     // Initialize the input filename
-    std::string filename = "generatedInput.ppm";
+    std::string filename = "generatedInput.txt";
     std::string path = "input/" + filename;
 
     // Open stream to output file
@@ -30,7 +30,7 @@ std::string generateHelixInput() {
 
         // Calculate Cartesian coordinates from polar coordinates
         float r = 4.0;
-        float theta = degreesToRadians(21.0);
+        float theta = degreesToRadians(20.0);
         float depth = 0.5;
         float iteration = static_cast<float>(i);
         float x = r * cos((theta * iteration) + iteration);
