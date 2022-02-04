@@ -53,7 +53,9 @@ Scene::Scene(std::string inputFilename) {
         } else if (keyword.compare("sphere") == 0) {
             this->objects.push_back(new Sphere(safeStreamVector3(iss, min, max), safeStreamFloat(iss, min, max), this->mtlColor));
         } else if (keyword.compare("cylinder") == 0) {
-            this->objects.push_back(new Sphere(safeStreamVector3(iss, min, max), safeStreamFloat(iss, min, max), this->mtlColor));
+            /*
+            this->objects.push_back(new Cylinder(safeStreamVector3(iss, min, max), safeStreamVector3(iss, min, max), safeStreamFloat(iss, min, max), safeStreamFloat(iss, min, max), this->mtlColor));
+            */
         }
     }
 
