@@ -6,4 +6,6 @@
 #include "MathUtils.h"
 #include "Vector3.h"
 
-std::string generateHelixInput();
+std::string generateRandomHelixInput();
+
+std::string generateSelectColorsHelixInput();

@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 
     // Parse arguments
     if (argc == 1) {
-        inputFileName = generateHelixInput();
+        inputFileName = generateSelectColorsHelixInput();
     } else if (argc == 2) {
         inputFileName = argv[1];
     } else {
