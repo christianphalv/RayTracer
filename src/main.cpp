@@ -63,8 +63,15 @@ int main(int argc, char *argv[]) {
             // Trace ray and set pixel to color
             Vector3 color = traceRay(ray, scene);
             image.setPixel(i, j, color);
+
         }
+
+        // Display progress
+        std::cout << "\r" << static_cast<int>(static_cast<float>(i) / static_cast<float>(image.getWidth()) * 100) << "%";
     }
+
+    // Display 100%
+    std::cout << "\r" << "100%" << "\n";
 
     // Print raytracer time
     auto stop = std::chrono::high_resolution_clock::now();
