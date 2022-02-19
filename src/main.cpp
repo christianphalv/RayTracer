@@ -19,20 +19,11 @@ int main(int argc, char *argv[]) {
     // Initialize new scene from input file
     Scene* scene = new Scene(inputFileName);
 
-    // Print info of each object in scene (FOR DEBUGGING)
-    for (int i = 0; i < scene->getObjects().size(); i++) {
-        //scene->getObjects()[i]->info();
-    }
-
     // Instantiate image
     Image image = Image(scene->getImageWidth(), scene->getImageHeight());
 
     // Extract camera from scene
     Camera* cam = scene->getCamera();
-
-    // Print field of view (FOR DEBUGGING)
-    //printf("VFOV: %f\n", radiansToDegrees(scene->getVerticalFov()));
-    //printf("HFOV: %f\n", radiansToDegrees(scene->getHorizontalFov()));
 
     // Calculate h and w
     float d = 1.0;
@@ -60,9 +51,20 @@ int main(int argc, char *argv[]) {
             Vector3 rayDirection = pixelPoint - cam->getEye();
             Ray ray = Ray(cam->getEye(), rayDirection);
 
-            // Trace ray and set pixel to color
-            Vector3 color = traceRay(ray, scene);
-            image.setPixel(i, j, color);
+            // Trace ray for object intersections
+            float time;
+            Object* object;
+            if (scene->traceRay(ray, 0, INFINITY, time, object)) {
+
+                // Set pixel to shaded intersection point
+                Vector3 color = scene->shadeRay(ray, ray.calculatePoint(time), object);
+                image.setPixel(i, j, color);
+
+            } else {
+
+                // Set pixel to background color if no intersecion
+                image.setPixel(i, j, scene->getBackgroundColor());
+            }
 
         }
 
@@ -100,36 +102,4 @@ int main(int argc, char *argv[]) {
     image.generatePPM(outputFileName);
 
     return 0;
-}
-
-Vector3 traceRay(Ray ray, Scene* scene) {
-
-    // Initialize nearest object storage
-    float nearestTime = 100000;
-    Object* nearestObject = NULL;
-
-    // Loop through each object in the scene
-    for (int i = 0; i < scene->getObjects().size(); i++) {
-
-        // Check ray-object intersection
-        float time;
-        if (scene->getObjects()[i]->rayIntersect(ray, time)) {
-
-            // Check if nearest object so far
-            if (time < nearestTime) {
-
-                // Update nearest object
-                nearestTime = time;
-                nearestObject = scene->getObjects()[i];
-            }
-        }
-    }
-
-    // Return nearest object color
-    if (nearestObject) {
-        return nearestObject->getColor();
-    }
-
-    // Return background color if no objects intersected
-    return scene->getBackgroundColor();
 }

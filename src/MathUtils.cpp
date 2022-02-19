@@ -1,14 +1,14 @@
 #include "../include/MathUtils.h"
 
-float radiansToDegrees(float radians) {
+float MathUtils::radiansToDegrees(float radians) {
     return radians * (180 / PI);
 }
 
-float degreesToRadians(float degrees) {
+float MathUtils::degreesToRadians(float degrees) {
     return degrees * (PI / 180);
 }
 
-Vector3 hexToColor(int hex) {
+Vector3 MathUtils::hexToColor(int hex) {
 
     // Declare r g b values
     int r, g, b;
@@ -20,4 +20,14 @@ Vector3 hexToColor(int hex) {
 
     // Return color
     return Vector3(r, b, g);
+}
+
+float MathUtils::clamp(float x, float min, float max) {
+    if (x < min) {
+        return min;
+    } else if (x > max) {
+        return max;
+    } else {
+        return x;
+    }
 }

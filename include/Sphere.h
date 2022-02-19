@@ -7,19 +7,41 @@
 class Sphere: public Object {
     public:
 
-        // Constructors
-        Sphere(Vector3 position, float radius, Vector3 color);
+        /**
+         * Constructor for an sphere.
+         *
+         * @param position The center position of the sphere.
+         * @param material A pointer to sphere's material.
+         * @param radius The radius of the sphere.
+         */
+        Sphere(Vector3 position, Material* material, float radius);
 
-        // Calculate the first ray intersection time
-        bool rayIntersect(Ray r, float& time) override;
+        /**
+         * Calculate a ray-sphere intersection.
+         *
+         * @param r The ray.
+         * @param min The minimum intersection time.
+         * @param max The maximum intersection time.
+         * @param time OUT The first intersection time.
+         * @return true if intersection, otherwise false.
+         */
+        bool rayIntersect(Ray r, float min, float max, float& time) override;
 
-        // Print sphere information
+        /**
+         * Calculate the normal at a surface point.
+         *
+         * @param point The the surface point.
+         * @return normal at the surface point.
+         */
+        Vector3 calculateNormal(Vector3 point) override;
+
+        /**
+         * Print sphere information.
+         */
         void info() override;
 
-        // Getters
         float getRadius();
 
-        // Setters
         void setRadius(float r);
 
     private:

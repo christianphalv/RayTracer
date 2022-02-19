@@ -5,7 +5,7 @@ Scene::Scene(std::string inputFilename) {
     // Default settings
     float min = -10000;
     float max = 10000;
-    this->mtlColor = Vector3(0, 0, 0);
+    this->material = new Material();
 
     // Default camera variables
     Vector3 eye = Vector3(0, 0, 0);
@@ -21,7 +21,7 @@ Scene::Scene(std::string inputFilename) {
 
         // Stream each line deliminating by spaces
         std::istringstream iss(line);
-        iss.exceptions(std::ios::failbit);
+        //iss.exceptions(std::ios::failbit); // GIVES NEW LINE ERROR
 
         // Stream keywork
         std::string keyword;
@@ -38,7 +38,7 @@ Scene::Scene(std::string inputFilename) {
             upDir = safeStreamVector3(iss, min, max);
 
         } else if (keyword.compare("vfov") == 0) {
-            this->vfov = degreesToRadians(safeStreamFloat(iss, 0, 180));
+            this->vfov = MathUtils::degreesToRadians(safeStreamFloat(iss, 0, 180));
 
         } else if (keyword.compare("imsize") == 0) {
             this->imageWidth = safeStreamInt(iss, 0, max);
@@ -48,14 +48,30 @@ Scene::Scene(std::string inputFilename) {
             this->bkgColor = safeStreamVector3(iss, 0, 1);
 
         } else if (keyword.compare("mtlcolor") == 0) {
-            this->mtlColor = safeStreamVector3(iss, 0, 1);
+            Vector3 mtlAlbedo = safeStreamVector3(iss, 0, 1);
+            Vector3 mtlSpecular = safeStreamVector3(iss, 0, 1);
+            Vector3 mtlK = safeStreamVector3(iss, 0, 1);
+            float mtlN = safeStreamFloat(iss, 0, max);
+            this->material = new Material(mtlAlbedo, mtlSpecular, mtlK, mtlN);
 
         } else if (keyword.compare("sphere") == 0) {
-            this->objects.push_back(new Sphere(safeStreamVector3(iss, min, max), safeStreamFloat(iss, min, max), this->mtlColor));
-        } else if (keyword.compare("cylinder") == 0) {
-            /*
-            this->objects.push_back(new Cylinder(safeStreamVector3(iss, min, max), safeStreamVector3(iss, min, max), safeStreamFloat(iss, min, max), safeStreamFloat(iss, min, max), this->mtlColor));
-            */
+            Vector3 position = safeStreamVector3(iss, min, max);
+            float radius = safeStreamFloat(iss, min, max);
+            this->objects.push_back(new Sphere(position, this->material, radius));
+
+        } else if (keyword.compare("light") == 0) {
+            Vector3 source = safeStreamVector3(iss, min, max);
+            float w = safeStreamFloat(iss, 0.0, 1.0);
+            Vector3 hue = safeStreamVector3(iss, 0.0, max);
+
+            if (w == 0) {
+                this->lights.push_back(new DirectionalLight(source, hue));
+            } else if (w > 0 && w <= 1) {
+                this->lights.push_back(new PointLight(source, hue));
+            } else {
+                std::cout << "Error: Invalid w value for light. Must be in range 0-1. \n";
+                exit(0);
+            }
         }
     }
 
@@ -66,10 +82,86 @@ Scene::Scene(std::string inputFilename) {
     this->hfov = 2.0 * atan((static_cast<float>(this->imageWidth) / static_cast<float>(this->imageHeight)) * tan(this->vfov / 2.0));
 }
 
+bool Scene::traceRay(Ray ray, float min, float max, float& time, Object*& object) {
+    
+    // Initialize nearest object storage
+    time = max;
+    object = NULL;
+
+    // Loop through each object in the scene
+    for (int i = 0; i < this->getObjects().size(); i++) {
+
+        // Check ray-object intersection
+        float t;
+        if (this->getObjects()[i]->rayIntersect(ray, min, max, t)) {
+
+            // Check if nearest object so far
+            if (t < time) {
+
+                // Update nearest object
+                time = t;
+                object = this->getObjects()[i];
+            }
+        }
+    }
+
+    // Return true and out point if object intersected
+    if (object) {
+        return true;
+    }
+
+    // Return false if no intersection
+    time = -1;
+    return false;
+}
+
+Vector3 Scene::shadeRay(Ray ray, Vector3 point, Object* object) {
+
+    // Extract material
+    Material* mat = object->getMaterial();
+
+    // Calculate surface normal at intersection point
+    Vector3 N = object->calculateNormal(point);
+
+    // Initialize illumination to ambient
+    Vector3 illumination = mat->getAmbient();
+
+    // Loop through each light source
+    for (int i = 0; i < this->lights.size(); i++) {
+
+        // Calculate L
+        Vector3 L = -this->lights[i]->sourceDirection(point).normalized();
+
+        // Initialize shadow parameters
+        Ray shadowRay = Ray(point, L);
+        float shadowTime;
+        Object* shadowObject;
+
+        // Check if the point is in a shadow
+        if (!traceRay(shadowRay, 0.001, INFINITY, shadowTime, shadowObject)) {
+
+            // Calculate H
+            Vector3 H = (L + -ray.getDirection()).normalized();
+
+            // Calculare diffuse component
+            Vector3 diffuse = mat->getK().getY() * mat->getAlbedo() * MathUtils::clamp((N * L), 0, 1);
+
+            // Calculate specular component
+            Vector3 specular = mat->getK().getZ() * mat->getSpecular() * pow(MathUtils::clamp(N * H, 0, 1), mat->getN());
+
+            // Add diffuse and specular components to illumination
+            Vector3 ds = diffuse + specular;
+            Vector3 hue = this->lights[i]->getHue();
+            illumination = illumination + Vector3(ds.getX() * hue.getX(), ds.getY() * hue.getY(), ds.getZ() * hue.getZ());
+        }
+    }
+
+    return illumination;
+}
+
 Camera* Scene::getCamera() {
     return this->cam;
 }
-
 
 float Scene::getVerticalFov() {
     return this->vfov;
@@ -95,6 +187,10 @@ std::vector<Object*> Scene::getObjects() {
     return this->objects;
 }
 
+std::vector<Light*> Scene::getLights() {
+    return this->lights;
+}
+
 float Scene::safeStreamFloat(std::istringstream& iss, float min, float max) {
 
     // Try to read float from stream
@@ -108,7 +204,7 @@ float Scene::safeStreamFloat(std::istringstream& iss, float min, float max) {
 
     // Check if value is within valid range
     if (value < min || value > max) {
-        std::cout << "Error: Value not within valid range.\n";
+        std::cout << "Error: Float value " << value << " not within valid range " << min << "-" << max << ".\n";
         exit(0);
     }
 
@@ -128,7 +224,7 @@ int Scene::safeStreamInt(std::istringstream& iss, int min, int max) {
 
     // Check if value is within valid range
     if (value < min || value > max) {
-        std::cout << "Error: Value not within valid range.\n";
+        std::cout << "Error: Integer value " << value << " not within valid range " << min << "-" << max << ".\n";
         exit(0);
     }
 
@@ -153,19 +249,19 @@ Vector3 Scene::safeStreamVector3(std::istringstream& iss, float min, float max) 
 
     // Check if x value is within valid range
     if (x < min || x > max) {
-        std::cout << "Error: Value not within valid range.\n";
+        std::cout << "Error: Vector3 float value " << x << " not within valid range " << min << "-" << max << ".\n";
         exit(0);
     }
 
     // Check if y value is within valid range
     if (y < min || y > max) {
-        std::cout << "Error: Value not within valid range.\n";
+        std::cout << "Error: Vector3 float value " << y << " not within valid range " << min << "-" << max << ".\n";
         exit(0);
     }
 
     // Check if z value is within valid range
     if (z < min || z > max) {
-        std::cout << "Error: Value not within valid range.\n";
+        std::cout << "Error: Vector3 float value " << z << " not within valid range " << min << "-" << max << ".\n";
         exit(0);
     }
 

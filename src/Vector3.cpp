@@ -2,7 +2,7 @@
 
 // Constructors
 Vector3::Vector3() {
-    this->x = 0;
+    this->x = 1;
     this->y = 0;
     this->z = 0;
 }
@@ -61,6 +61,10 @@ Vector3 operator+(Vector3 u, Vector3 v) {
 
 Vector3 operator-(Vector3 u, Vector3 v) {
     return Vector3(u.getX() - v.getX(), u.getY() - v.getY(), u.getZ() - v.getZ());
+}
+
+Vector3 operator-(Vector3 v) {
+    return Vector3(- v.getX(), - v.getY(), - v.getZ());
 }
 
 Vector3 operator*(Vector3 v, float c) {

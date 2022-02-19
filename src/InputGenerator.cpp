@@ -31,7 +31,7 @@ std::string generateRandomHelixInput() {
 
         // Calculate Cartesian coordinates from polar coordinates
         float r = 4.0;
-        float theta = degreesToRadians(20.0);
+        float theta = MathUtils::degreesToRadians(20.0);
         float depth = 0.5;
         float iteration = static_cast<float>(i);
         float x = r * cos((theta * iteration) + iteration);
@@ -77,7 +77,7 @@ std::string generateSelectColorsHelixInput() {
     srand(static_cast<unsigned>(time(0)));
 
     // Define color set
-    Vector3 colors[] = {hexToColor(0x444444), hexToColor(0x888888), hexToColor(0xCCCCCC), hexToColor(0xFFFFFF)};
+    Vector3 colors[] = {MathUtils::hexToColor(0x444444), MathUtils::hexToColor(0x888888), MathUtils::hexToColor(0xCCCCCC), MathUtils::hexToColor(0xFFFFFF)};
     int colorsLenth = sizeof(colors) / sizeof(colors[0]);
 
     // Generate each sphere
@@ -88,7 +88,7 @@ std::string generateSelectColorsHelixInput() {
 
         // Calculate Cartesian coordinates from polar coordinates
         float r = 4.0;
-        float theta = degreesToRadians(20.0);
+        float theta = MathUtils::degreesToRadians(20.0);
         float depth = 0.5;
         float iteration = static_cast<float>(i);
         float x = r * cos((theta * iteration) + iteration);

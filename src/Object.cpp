@@ -1,19 +1,18 @@
 #include "../include/Object.h"
 
-// Getters
+Object::Object(Vector3 position, Material* material) {
+    this->position = position;
+    this->material = material;
+}
+
 Vector3 Object::getPosition() {
     return this->position;
 }
 
-Vector3 Object::getColor() {
-    return this->color;
+Material* Object::getMaterial() {
+    return this->material;
 }
 
-// Setters
 void Object::setPosition(Vector3 v) {
     this->position = v;
-}
-
-void Object::setColor(Vector3 v) {
-    this->color = v;
 }

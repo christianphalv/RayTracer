@@ -8,11 +8,11 @@ mtlcolor 0 0 0
 sphere 4 0 0 1
 mtlcolor 0 0 0
 sphere 0.879673 3.90207 0.5 1
-mtlcolor 0 0 0
-sphere -3.61309 1.71627 1 1
 mtlcolor 1 1 1
-sphere -2.46884 -3.14719 1.5 1
+sphere -3.61309 1.71627 1 1
 mtlcolor 0 0 0
+sphere -2.46884 -3.14719 1.5 1
+mtlcolor 1 1 1
 sphere 2.5272 -3.10052 2 1
 mtlcolor 0 0 0
 sphere 3.5804 1.78347 2.5 1
@@ -30,27 +30,27 @@ mtlcolor 0 0 0
 sphere -2.58469 3.05277 5.5 1
 mtlcolor 0 0 0
 sphere -3.54645 -1.85005 6 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 1.02483 -3.86649 6.5 1
 mtlcolor 0 0 0
 sphere 3.99721 0.149425 7 1
 mtlcolor 0 0 0
 sphere 0.733284 3.93221 7.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.67468 1.5801 8 1
-mtlcolor 1 1 1
-sphere -2.34954 -3.23723 8.5 1
-mtlcolor 1 1 1
-sphere 2.64126 -3.00395 9 1
 mtlcolor 0 0 0
+sphere -2.34954 -3.23723 8.5 1
+mtlcolor 0 0 0
+sphere 2.64126 -3.00395 9 1
+mtlcolor 1 1 1
 sphere 3.51127 1.91598 9.5 1
 mtlcolor 0 0 0
 sphere -1.09688 3.84667 10 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.99372 -0.22408 10.5 1
 mtlcolor 0 0 0
 sphere -0.659697 -3.94523 11 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 3.70356 -1.51117 11.5 1
 mtlcolor 0 0 0
 sphere 2.28866 3.28055 12 1
@@ -58,19 +58,19 @@ mtlcolor 0 0 0
 sphere -2.69693 2.95408 12.5 1
 mtlcolor 0 0 0
 sphere -3.47486 -1.98125 13 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 1.16856 -3.8255 13.5 1
 mtlcolor 0 0 0
 sphere 3.98884 0.298642 14 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 0.585879 3.95686 14.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.73115 1.44171 15 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -2.22697 -3.32274 15.5 1
 mtlcolor 0 0 0
 sphere 2.75164 -2.90319 16 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.43724 2.04581 16.5 1
 mtlcolor 0 0 0
 sphere -1.23982 3.803 17 1
@@ -86,25 +86,25 @@ mtlcolor 0 0 0
 sphere -2.8054 2.85127 19.5 1
 mtlcolor 0 0 0
 sphere -3.39843 -2.10966 20 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 1.31065 -3.77918 20.5 1
 mtlcolor 0 0 0
 sphere 3.97489 0.447457 21 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 0.437656 3.97599 21.5 1
 mtlcolor 0 0 0
 sphere -3.7824 1.30133 22 1
 mtlcolor 0 0 0
 sphere -2.10129 -3.40361 22.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 2.85818 -2.79836 23 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.35842 2.17279 23.5 1
 mtlcolor 0 0 0
 sphere -1.38101 3.75404 24 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.96584 -0.521628 24.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -0.363295 -3.98347 25 1
 mtlcolor 0 0 0
 sphere 3.80605 -1.23043 25.5 1
@@ -114,13 +114,13 @@ mtlcolor 0 0 0
 sphere -2.90995 2.74448 26.5 1
 mtlcolor 0 0 0
 sphere -3.31724 -2.23516 27 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 1.45092 -3.72758 27.5 1
 mtlcolor 0 0 0
 sphere 3.95541 0.595617 28 1
-mtlcolor 0 0 0
-sphere 0.288823 3.98956 28.5 1
 mtlcolor 1 1 1
+sphere 0.288823 3.98956 28.5 1
+mtlcolor 0 0 0
 sphere -3.82837 1.15912 29 1
 mtlcolor 0 0 0
 sphere -1.97267 -3.47974 29.5 1
@@ -136,9 +136,9 @@ mtlcolor 0 0 0
 sphere -0.214249 -3.99426 32 1
 mtlcolor 0 0 0
 sphere 3.84936 -1.08741 32.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 1.90732 3.51598 33 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.01045 2.63385 33.5 1
 mtlcolor 0 0 0
 sphere -3.23142 -2.35753 34 1
@@ -146,37 +146,37 @@ mtlcolor 0 0 0
 sphere 1.58914 -3.67078 34.5 1
 mtlcolor 0 0 0
 sphere 3.93039 0.742975 35 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 0.139571 3.99756 35.5 1
 mtlcolor 0 0 0
 sphere -3.869 1.01531 36 1
 mtlcolor 0 0 0
 sphere -1.84131 -3.551 36.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.05913 -2.57716 37 1
 mtlcolor 0 0 0
 sphere 3.18682 2.41748 37.5 1
 mtlcolor 0 0 0
 sphere -1.65746 3.64044 38 1
-mtlcolor 0 0 0
-sphere -3.91583 -0.816264 38.5 1
 mtlcolor 1 1 1
+sphere -3.91583 -0.816264 38.5 1
+mtlcolor 0 0 0
 sphere -0.0648739 -3.99947 39 1
 mtlcolor 0 0 0
 sphere 3.8873 -0.942835 39.5 1
 mtlcolor 0 0 0
 sphere 1.77466 3.58477 40 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.10675 2.51954 40.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.1411 -2.47658 41 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 1.72518 -3.60885 41.5 1
 mtlcolor 1 1 1
 sphere 3.89989 0.889297 42 1
 mtlcolor 0 0 0
 sphere -0.00984561 3.99999 42.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.90423 0.870058 43 1
 mtlcolor 0 0 0
 sphere -1.70736 -3.61731 43.5 1
@@ -184,13 +184,13 @@ mtlcolor 0 0 0
 sphere 3.15328 -2.46107 44 1
 mtlcolor 0 0 0
 sphere 3.09427 2.53485 44.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -1.79229 3.57599 45 1
 mtlcolor 0 0 0
 sphere -3.8826 -0.96199 45.5 1
 mtlcolor 0 0 0
 sphere 0.0845922 -3.99911 46 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.9198 -0.796977 46.5 1
 mtlcolor 0 0 0
 sphere 1.63949 3.64857 47 1
@@ -198,7 +198,7 @@ mtlcolor 1 1 1
 sphere -3.1987 2.40174 47.5 1
 mtlcolor 0 0 0
 sphere -3.0464 -2.59218 48 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 1.8588 -3.54187 48.5 1
 mtlcolor 0 0 0
 sphere 3.86395 1.03435 49 1
@@ -210,23 +210,23 @@ mtlcolor 0 0 0
 sphere -1.57105 -3.67856 50.5 1
 mtlcolor 0 0 0
 sphere 3.24302 -2.34154 51 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 2.99743 2.64866 51.5 1
 mtlcolor 0 0 0
 sphere -1.92466 3.50652 52 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.84395 -1.10637 52.5 1
 mtlcolor 0 0 0
 sphere 0.23391 -3.99316 53 1
 mtlcolor 0 0 0
 sphere 3.94683 -0.650006 53.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 1.50204 3.70727 54 1
 mtlcolor 0 0 0
 sphere -3.28618 2.28058 54.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -2.94741 -2.70421 55 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 1.9898 -3.46997 55.5 1
 mtlcolor 1 1 1
 sphere 3.82262 1.17795 56 1
@@ -236,15 +236,15 @@ mtlcolor 0 0 0
 sphere -3.95829 0.576138 57 1
 mtlcolor 0 0 0
 sphere -1.4325 -3.7347 57.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.32822 -2.21877 58 1
 mtlcolor 0 0 0
 sphere 2.89641 2.75877 58.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -2.05429 3.43218 59 1
 mtlcolor 1 1 1
 sphere -3.79994 -1.24918 59.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 0.382962 -3.98163 60 1
 mtlcolor 0 0 0
 sphere 3.96837 -0.502068 60.5 1
@@ -256,13 +256,13 @@ mtlcolor 0 0 0
 sphere -2.84435 -2.81242 62 1
 mtlcolor 0 0 0
 sphere 2.11802 -3.39323 62.5 1
-mtlcolor 1 1 1
-sphere 3.77593 1.31997 63 1
-mtlcolor 1 1 1
-sphere -0.457239 3.97378 63.5 1
-mtlcolor 1 1 1
-sphere -3.97705 0.427884 64 1
 mtlcolor 0 0 0
+sphere 3.77593 1.31997 63 1
+mtlcolor 0 0 0
+sphere -0.457239 3.97378 63.5 1
+mtlcolor 0 0 0
+sphere -3.97705 0.427884 64 1
+mtlcolor 1 1 1
 sphere -1.292 -3.7856 64.5 1
 mtlcolor 0 0 0
 sphere 3.40877 -2.09291 65 1
@@ -276,11 +276,11 @@ mtlcolor 0 0 0
 sphere 0.531418 -3.96454 67 1
 mtlcolor 0 0 0
 sphere 3.98435 -0.353489 67.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 1.22103 3.80908 68 1
 mtlcolor 0 0 0
 sphere -3.44729 2.02884 68.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -2.73731 -2.9167 69 1
 mtlcolor 0 0 0
 sphere 2.24334 -3.31171 69.5 1
@@ -302,19 +302,19 @@ mtlcolor 1 1 1
 sphere -3.69606 -1.52943 73.5 1
 mtlcolor 0 0 0
 sphere 0.679133 -3.94193 74 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.99477 -0.204417 74.5 1
 mtlcolor 0 0 0
 sphere 1.0779 3.85203 75 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.52067 1.89866 75.5 1
 mtlcolor 0 0 0
 sphere -2.62641 -3.01695 76 1
 mtlcolor 0 0 0
 sphere 2.36548 -3.22561 76.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 3.66686 1.59817 77 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -0.752678 3.92855 77.5 1
 mtlcolor 0 0 0
 sphere -3.9979 0.129731 78 1
@@ -336,25 +336,25 @@ mtlcolor 0 0 0
 sphere 0.933264 3.8896 82 1
 mtlcolor 0 0 0
 sphere -3.58913 1.76583 82.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -2.51189 -3.11295 83 1
 mtlcolor 0 0 0
 sphere 2.48431 -3.135 83.5 1
 mtlcolor 0 0 0
 sphere 3.60458 1.73408 84 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -0.898893 3.89769 84.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.99995 -0.0196912 85 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -0.860416 -3.90636 85.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.6215 -1.69845 86 1
 mtlcolor 0 0 0
 sphere 2.45327 3.15934 86.5 1
 mtlcolor 0 0 0
 sphere -2.54246 3.08803 87 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.57157 -1.80108 87.5 1
 mtlcolor 0 0 0
 sphere 0.971573 -3.88021 88 1
@@ -364,11 +364,11 @@ mtlcolor 0 0 0
 sphere 0.787266 3.92176 89 1
 mtlcolor 0 0 0
 sphere -3.65261 1.63048 89.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -2.39386 -3.2046 90 1
 mtlcolor 0 0 0
 sphere 2.59968 -3.04001 90.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.53729 1.86751 91 1
 mtlcolor 0 0 0
 sphere -1.04385 3.86139 91.5 1
@@ -384,43 +384,43 @@ mtlcolor 0 0 0
 sphere -2.65603 2.9909 94 1
 mtlcolor 0 0 0
 sphere -3.50177 -1.93329 94.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 1.11583 -3.84121 95 1
 mtlcolor 0 0 0
 sphere 3.99257 0.243738 95.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 0.64029 3.94842 96 1
 mtlcolor 0 0 0
 sphere -3.71094 1.49296 96.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -2.27244 -3.29181 97 1
 mtlcolor 0 0 0
 sphere 2.71146 -2.94075 97.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.46506 1.99833 98 1
 mtlcolor 0 0 0
 sphere -1.18736 3.81971 98.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.98731 -0.318366 99 1
 mtlcolor 0 0 0
 sphere -0.566333 -3.95971 99.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.73821 -1.4233 100 1
 mtlcolor 1 1 1
 sphere 2.21057 3.33367 100.5 1
-mtlcolor 1 1 1
-sphere -2.76589 2.88961 101 1
 mtlcolor 0 0 0
+sphere -2.76589 2.88961 101 1
+mtlcolor 1 1 1
 sphere -3.42715 -2.06268 101.5 1
 mtlcolor 0 0 0
 sphere 1.25859 -3.79683 102 1
 mtlcolor 0 0 0
 sphere 3.98067 0.392761 102.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 0.492299 3.96959 103 1
 mtlcolor 0 0 0
 sphere -3.76413 1.35325 103.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -2.14784 -3.37443 104 1
 mtlcolor 0 0 0
 sphere 2.81945 -2.83737 104.5 1
@@ -434,39 +434,39 @@ mtlcolor 1 1 1
 sphere -0.418093 -3.97809 106.5 1
 mtlcolor 0 0 0
 sphere 3.78875 -1.28273 107 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 2.08446 3.41395 107.5 1
 mtlcolor 0 0 0
 sphere -2.87194 2.78423 108 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.34768 -2.18931 108.5 1
 mtlcolor 0 0 0
 sphere 1.39947 -3.7472 109 1
 mtlcolor 1 1 1
 sphere 3.96321 0.541235 109.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 0.343621 3.98521 110 1
 mtlcolor 1 1 1
 sphere -3.81207 1.21165 110.5 1
 mtlcolor 0 0 0
 sphere -2.02035 -3.45227 111 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 2.92343 -2.73012 111.5 1
 mtlcolor 0 0 0
 sphere 3.30621 2.25143 112 1
 mtlcolor 0 0 0
 sphere -1.46931 3.72037 112.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.95242 -0.615142 113 1
 mtlcolor 0 0 0
 sphere -0.269149 -3.99093 113.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 3.83403 -1.14026 114 1
 mtlcolor 0 0 0
 sphere 1.95543 3.48945 114.5 1
 mtlcolor 0 0 0
 sphere -2.97398 2.67497 115 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -3.26353 -2.31287 115.5 1
 mtlcolor 1 1 1
 sphere 1.53852 -3.69228 116 1
@@ -478,7 +478,7 @@ mtlcolor 0 0 0
 sphere -3.85466 1.06847 117.5 1
 mtlcolor 0 0 0
 sphere -1.88994 -3.52536 118 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.0234 -2.61897 118.5 1
 mtlcolor 0 0 0
 sphere 3.21977 2.37341 119 1
@@ -488,7 +488,7 @@ mtlcolor 0 0 0
 sphere -3.92667 -0.762405 120 1
 mtlcolor 0 0 0
 sphere -0.119829 -3.9982 120.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.87396 -0.996195 121 1
 mtlcolor 0 0 0
 sphere 1.82378 3.56003 121.5 1
@@ -498,7 +498,7 @@ mtlcolor 0 0 0
 sphere -3.1749 -2.43311 122.5 1
 mtlcolor 0 0 0
 sphere 1.67531 -3.63226 123 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.91175 0.83559 123.5 1
 mtlcolor 0 0 0
 sphere 0.045154 3.99975 124 1
@@ -512,15 +512,15 @@ mtlcolor 0 0 0
 sphere 3.12884 2.49207 126 1
 mtlcolor 1 1 1
 sphere -1.74295 3.6003 126.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.89547 -0.908484 127 1
 mtlcolor 0 0 0
 sphere 0.0295366 -3.99989 127.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.90846 -0.850857 128 1
 mtlcolor 0 0 0
 sphere 1.68948 3.62569 128.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.16537 2.44549 129 1
 mtlcolor 0 0 0
 sphere -3.08176 -2.55005 129.5 1
@@ -528,13 +528,13 @@ mtlcolor 0 0 0
 sphere 1.80987 -3.56712 130 1
 mtlcolor 0 0 0
 sphere 3.87779 0.98118 130.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -0.104339 3.99864 131 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.92369 0.777611 131.5 1
 mtlcolor 0 0 0
 sphere -1.62148 -3.65661 132 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 3.21048 -2.38596 132.5 1
 mtlcolor 0 0 0
 sphere 3.03361 2.60715 133 1
@@ -548,11 +548,11 @@ mtlcolor 0 0 0
 sphere 3.93752 -0.704213 135 1
 mtlcolor 0 0 0
 sphere 1.55293 3.68625 135.5 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere -3.25454 2.3255 136 1
 mtlcolor 0 0 0
 sphere -2.98432 -2.66343 136.5 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere 1.9419 -3.497 137 1
 mtlcolor 0 0 0
 sphere 3.83846 1.12528 137.5 1
@@ -560,9 +560,9 @@ mtlcolor 0 0 0
 sphere -0.253564 3.99196 138 1
 mtlcolor 0 0 0
 sphere -3.94999 0.630569 138.5 1
-mtlcolor 0 0 0
-sphere -1.48371 -3.71465 139 1
 mtlcolor 1 1 1
+sphere -1.48371 -3.71465 139 1
+mtlcolor 0 0 0
 sphere 3.2974 -2.26433 139.5 1
 mtlcolor 1 1 1
 sphere 2.93406 2.71869 140 1
@@ -578,7 +578,7 @@ mtlcolor 0 0 0
 sphere 1.41409 3.7417 142.5 1
 mtlcolor 1 1 1
 sphere -3.3391 2.20236 143 1
-mtlcolor 1 1 1
+mtlcolor 0 0 0
 sphere -2.88279 -2.773 143.5 1
 mtlcolor 0 0 0
 sphere 2.07111 -3.42206 144 1
@@ -602,5 +602,5 @@ mtlcolor 0 0 0
 sphere 0.476796 -3.97148 148.5 1
 mtlcolor 0 0 0
 sphere 3.97911 -0.4083 149 1
-mtlcolor 0 0 0
+mtlcolor 1 1 1
 sphere 1.27329 3.79193 149.5 1

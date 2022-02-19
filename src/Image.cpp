@@ -67,5 +67,5 @@ int Image::getHeight() {
 }
 
 void Image::setPixel(int x, int y, Vector3 color) {
-    this->image[x][y] = color.copy();
+    this->image[x][y] = Vector3(MathUtils::clamp(color.getX(), 0, 1), MathUtils::clamp(color.getY(), 0, 1), MathUtils::clamp(color.getZ(), 0, 1));
 }

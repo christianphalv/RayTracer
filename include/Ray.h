@@ -6,17 +6,26 @@
 
 class Ray {
     public:
-        // Constructors
+        
+        /**
+         * Constructor for a ray.
+         *
+         * @param origin The origin of the ray.
+         * @param direction The direction of the ray.
+         */
         Ray(Vector3 origin, Vector3 direction);
 
-        // Calculate point at time t along ray
+        /**
+         * Calculate the point at a time along the ray.
+         *
+         * @param t The time along the ray.
+         * @return the point along the ray.
+         */
         Vector3 calculatePoint(float t);
 
-        // Getters
         Vector3 getOrigin();
         Vector3 getDirection();
 
-        // Setters
         void setOrigin(Vector3 v);
         void setDirection(Vector3 v);
 

@@ -2,7 +2,7 @@
 CXX := g++
 
 # Target executable
-TARGET := raytracer.exe
+TARGET := raytracer
 
 # Directories
 SRC_DIRS := ./src
@@ -30,7 +30,7 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $(@) $(<) 
 
 # Phony declarations
-.PHONY: clean clean-all run
+.PHONY: clean clean-all run gdb test
 
 # Clean build directory
 clean:
@@ -44,3 +44,14 @@ clean-all:
 # Run executable
 run: $(BUILD_DIR)/$(TARGET)
 	$(BUILD_DIR)/$(TARGET) $(INPUT_DIR)/input.txt
+
+# Runs debug using gdb
+gdb: $(BUILD_DIR)/$(TARGET)
+	gdb $(BUILD_DIR)/$(TARGET) core
+
+test: $(BUILD_DIR)/$(TARGET)
+	$(BUILD_DIR)/$(TARGET) $(INPUT_DIR)/HW1B_Test_Inputs/ray_input1b.txt
+	$(BUILD_DIR)/$(TARGET) $(INPUT_DIR)/HW1B_Test_Inputs/ray_input2b.txt
+	$(BUILD_DIR)/$(TARGET) $(INPUT_DIR)/HW1B_Test_Inputs/ray_input3b.txt
+	$(BUILD_DIR)/$(TARGET) $(INPUT_DIR)/HW1B_Test_Inputs/ray_input4b.txt
+	$(BUILD_DIR)/$(TARGET) $(INPUT_DIR)/HW1B_Test_Inputs/ray_input5b.txt

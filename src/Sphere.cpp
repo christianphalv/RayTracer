@@ -1,12 +1,10 @@
 #include "../include/Sphere.h"
 
-Sphere::Sphere(Vector3 position, float radius, Vector3 color) {
-    this->position = position;
+Sphere::Sphere(Vector3 position, Material* material, float radius): Object(position, material) {
     this->radius = radius;
-    this->color = color;
 }
 
-bool Sphere::rayIntersect(Ray r, float& time) {
+bool Sphere::rayIntersect(Ray r, float min, float max, float& time) {
 
     // Extract sphere center
     float c_x = this->position.getX();
@@ -45,13 +43,13 @@ bool Sphere::rayIntersect(Ray r, float& time) {
             std::swap(t_1, t_2);
         }
 
-        // Check if first intersection point is behind ray
-        if (t_1 < 0) {
+        // Check if first intersection point is behind min point or beyond max point
+        if (t_1 < min || t_1 > max) {
 
-            // Check if second intersection point is behind ray
-            if (t_2 < 0) {
+            // Check if second intersection point is behind min point or beyond max point
+            if (t_2 < min || t_2 > max) {
 
-                // Return false if intersection is behind ray origin
+                // Return false if intersection is behind min point or beyond max point
                 time = -1;
                 return false;
             }
@@ -68,8 +66,16 @@ bool Sphere::rayIntersect(Ray r, float& time) {
 
     } else if (discriminant == 0) {
 
-        // Return single intersection point
+        // Calculate single intersection point
         time = -B / 2;
+
+        // Check if point is behind min or beyond max
+        if (time < min || time > max) {
+            time = -1;
+            return false;
+        }
+
+        // Return single intersection point
         return true;
     }
 
@@ -78,11 +84,14 @@ bool Sphere::rayIntersect(Ray r, float& time) {
     return false;
 }
 
+Vector3 Sphere::calculateNormal(Vector3 point) {
+    return (point - this->position).normalized();
+}
+
 void Sphere::info() {
     std::cout << "--- Sphere ---\n"
         << "Position: " << this->position.getX() << ", " << this->position.getY() << ", " << this->position.getZ() << "\n"
-        << "Radius: " << this->radius << "\n"
-        << "Color: " << this->color.getX() << ", " << this->color.getY() << ", " << this->color.getZ() << "\n";
+        << "Radius: " << this->radius << "\n";
 }
 
 float Sphere::getRadius() {
