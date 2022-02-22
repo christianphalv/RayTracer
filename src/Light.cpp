@@ -5,7 +5,7 @@ Light::Light(Vector3 source, Vector3 hue) {
     this->hue = hue;
 }
 
-Vector3 Light::getHue() {
+Vector3 Light::calculateHue(Vector3 point) {
 
     // Return normalized hue if length greater than one
     if (this->hue.length() > 1) {

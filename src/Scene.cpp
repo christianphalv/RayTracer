@@ -12,6 +12,11 @@ Scene::Scene(std::string inputFilename) {
     Vector3 viewDir = Vector3(1, 0, 0);
     Vector3 upDir = Vector3(0, 1, 0);
 
+    // Setup polygon objects
+    std::vector<Vector3*> vertices;
+    std::vector<Vector3*> indices;
+    std::vector<Material*> triangleMats;
+
     // Open stream to input file
     std::ifstream inputFile(inputFilename, std::ios::in | std::ios::binary);
 
@@ -57,7 +62,21 @@ Scene::Scene(std::string inputFilename) {
         } else if (keyword.compare("sphere") == 0) {
             Vector3 position = safeStreamVector3(iss, min, max);
             float radius = safeStreamFloat(iss, min, max);
-            this->objects.push_back(new Sphere(position, this->material, radius));
+            this->objects.push_back(new Sphere(this->material, position, radius));
+
+        } else if (keyword.compare("plane") == 0) {
+            Vector3 normal = safeStreamVector3(iss, min, max);
+            Vector3 vertex = safeStreamVector3(iss, min, max);
+            this->objects.push_back(new Plane(this->material, normal, vertex));
+
+        } else if (keyword.compare("v") == 0) {
+            Vector3 v = safeStreamVector3(iss, min, max);
+            vertices.push_back(new Vector3(v.getX(), v.getY(), v.getZ()));
+
+        } else if (keyword.compare("f") == 0) {
+            Vector3 f = safeStreamVector3(iss, min, max);
+            indices.push_back(new Vector3(f.getX(), f.getY(), f.getZ()));
+            triangleMats.push_back(this->material);
 
         } else if (keyword.compare("light") == 0) {
             Vector3 source = safeStreamVector3(iss, min, max);
@@ -72,6 +91,13 @@ Scene::Scene(std::string inputFilename) {
                 std::cout << "Error: Invalid w value for light. Must be in range 0-1. \n";
                 exit(0);
             }
+
+        } else if (keyword.compare("attlight") == 0) {
+            Vector3 source = safeStreamVector3(iss, min, max);
+            float w = safeStreamFloat(iss, 0.0, 1.0);
+            Vector3 hue = safeStreamVector3(iss, 0.0, max);
+            Vector3 cValues = safeStreamVector3(iss, 0.0, max);
+            this->lights.push_back(new AttenuationLight(source, hue, cValues));
         }
     }
 
@@ -80,6 +106,32 @@ Scene::Scene(std::string inputFilename) {
 
     // Calculate horizontal fov from vertical fov and image dimensions
     this->hfov = 2.0 * atan((static_cast<float>(this->imageWidth) / static_cast<float>(this->imageHeight)) * tan(this->vfov / 2.0));
+
+    // Instantiate triangles
+    for (int i = 0; i < indices.size(); i++) {
+
+        // Retrieve triangle indices
+        int i0 = indices[i]->getX() - 1;
+        int i1 = indices[i]->getY() - 1;
+        int i2 = indices[i]->getZ() - 1;
+
+        // Check if indices are valid
+        if (i0 >= vertices.size() || i1 >= vertices.size() || i2 >= vertices.size()) {
+            std::cout << "Error: Triangle index out of range. \n";
+            exit(0);
+        }
+
+        // Retrieve triangle vertices
+        Vector3 v0 = vertices[i0]->copy();
+        Vector3 v1 = vertices[i1]->copy();
+        Vector3 v2 = vertices[i2]->copy();
+
+        // Retrieve triangle material
+        Material* m = triangleMats[i];
+
+        // Instantiate triangle and add to objects
+        this->objects.push_back(new Triangle(m, v0, v1, v2));
+    }
 }
 
 bool Scene::traceRay(Ray ray, float min, float max, float& time, Object*& object) {
@@ -129,6 +181,8 @@ Vector3 Scene::shadeRay(Ray ray, Vector3 point, Object* object) {
     // Loop through each light source
     for (int i = 0; i < this->lights.size(); i++) {
 
+        Light* light = this->lights[i];
+
         // Calculate L
         Vector3 L = -this->lights[i]->sourceDirection(point).normalized();
 
@@ -137,8 +191,16 @@ Vector3 Scene::shadeRay(Ray ray, Vector3 point, Object* object) {
         float shadowTime;
         Object* shadowObject;
 
+        // Set maximum time
+        float max;
+        if (dynamic_cast<DirectionalLight*>(light)) {
+            max = INFINITY;
+        } else {
+            max = (light->source - point).length();
+        }
+
         // Check if the point is in a shadow
-        if (!traceRay(shadowRay, 0.001, INFINITY, shadowTime, shadowObject)) {
+        if (!traceRay(shadowRay, 0.001, max, shadowTime, shadowObject)) {
 
             // Calculate H
             Vector3 H = (L + -ray.getDirection()).normalized();
@@ -151,7 +213,7 @@ Vector3 Scene::shadeRay(Ray ray, Vector3 point, Object* object) {
 
             // Add diffuse and specular components to illumination
             Vector3 ds = diffuse + specular;
-            Vector3 hue = this->lights[i]->getHue();
+            Vector3 hue = this->lights[i]->calculateHue(point);
             illumination = illumination + Vector3(ds.getX() * hue.getX(), ds.getY() * hue.getY(), ds.getZ() * hue.getZ());
         }
     }

@@ -71,13 +71,18 @@ std::string generateSelectColorsHelixInput() {
         << "eye 0 0 0" << "\n"
         << "viewdir 0 0 1" << "\n"
         << "updir 0 1 0" << "\n"
-        << "bkgcolor 0.1 0.1 0.1" << "\n";
+        << "bkgcolor 0.1 0.1 0.1" << "\n"
+        << "light 0 0 0 1 1 1 1" << "\n";
 
     // Seed random number
     srand(static_cast<unsigned>(time(0)));
 
     // Define color set
-    Vector3 colors[] = {MathUtils::hexToColor(0x444444), MathUtils::hexToColor(0x888888), MathUtils::hexToColor(0xCCCCCC), MathUtils::hexToColor(0xFFFFFF)};
+    Vector3 colors[] = {Vector3(250.0 / 255.0, 181.0 / 255.0, 93.0 / 255.0),
+        Vector3(222.0 / 255.0, 140.0 / 255.0, 82.0 / 255.0),
+        Vector3(245.0 / 255.0, 141.0 / 255.0, 104.0 / 255.0),
+        Vector3(222.0 / 255.0, 99.0 / 255.0, 82.0 / 255.0),
+        Vector3(250.0 / 255.0, 93.0 / 255.0, 106.0 / 255.0)};
     int colorsLenth = sizeof(colors) / sizeof(colors[0]);
 
     // Generate each sphere
@@ -100,7 +105,8 @@ std::string generateSelectColorsHelixInput() {
         Vector3 position2 = Vector3(x, y, z + 1.5);
 
         // Output the sphere information
-        outputFile << "mtlcolor " << color.getX() << " " << color.getY() << " " << color.getZ() << "\n"
+        outputFile << "mtlcolor " << color.getX() << " " << color.getY() << " " << color.getZ() 
+            << " 1 1 1 0.4 0.9 0.5 20" << "\n"
             << "sphere " << position.getX() << " " << position.getY() << " " << position.getZ() << " 1" << "\n";
     }
 

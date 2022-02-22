@@ -6,15 +6,18 @@
 #include <string>
 #include <vector>
 
+#include "AttenuationLight.h"
 #include "Camera.h"
 #include "DirectionalLight.h"
 #include "Light.h"
 #include "Material.h"
 #include "MathUtils.h"
 #include "Object.h"
+#include "Plane.h"
 #include "PointLight.h"
 #include "Ray.h"
 #include "Sphere.h"
+#include "Triangle.h"
 #include "Vector3.h"
 
 #define PI 3.14159265

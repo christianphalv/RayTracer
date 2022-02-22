@@ -1,7 +1,8 @@
 #include "../include/Sphere.h"
 
-Sphere::Sphere(Vector3 position, Material* material, float radius): Object(position, material) {
+Sphere::Sphere(Material* material, Vector3 position, float radius): Object(material) {
     this->radius = radius;
+    this->position = position;
 }
 
 bool Sphere::rayIntersect(Ray r, float min, float max, float& time) {

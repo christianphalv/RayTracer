@@ -21,9 +21,9 @@ class Light {
          */
         virtual Vector3 sourceDirection(Vector3 point) = 0;
 
-        Vector3 getHue();
+        virtual Vector3 calculateHue(Vector3 point);
 
-    protected:
+    public:
         Vector3 source;
         Vector3 hue;
 };

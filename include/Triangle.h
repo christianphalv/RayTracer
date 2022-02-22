@@ -3,21 +3,23 @@
 #include <iostream>
 
 #include "Object.h"
+#include "Plane.h"
 
-class Sphere: public Object {
+class Triangle: public Object {
     public:
 
         /**
-         * Constructor for an sphere.
+         * Constructor for an triangle.
          *
-         * @param material A pointer to sphere's material.
-         * @param position The center position of the sphere.
-         * @param radius The radius of the sphere.
+         * @param material A pointer to triangle's material.
+         * @param v0 The 0th triangle vertex.
+         * @param v1 The 1th triangle vertex.
+         * @param v2 The 2th triangle vertex.
          */
-        Sphere(Material* material, Vector3 position, float radius);
+        Triangle(Material* material, Vector3 v0, Vector3 v1, Vector3 v2);
 
         /**
-         * Calculate a ray-sphere intersection.
+         * Calculate a ray-triangle intersection.
          *
          * @param r The ray.
          * @param min The minimum intersection time.
@@ -36,15 +38,14 @@ class Sphere: public Object {
         Vector3 calculateNormal(Vector3 point) override;
 
         /**
-         * Print sphere information.
+         * Print triangle information.
          */
         void info() override;
 
-        float getRadius();
-
-        void setRadius(float r);
-
     private:
-        Vector3 position;
-        float radius;
+        Vector3 v0;
+        Vector3 v1;
+        Vector3 v2;
+
+        Plane* plane;
 };

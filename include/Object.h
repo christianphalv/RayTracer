@@ -12,10 +12,9 @@ class Object {
         /**
          * Constructor for an object.
          *
-         * @param position The position of the object.
          * @param material A pointer to object's material.
          */
-        Object(Vector3 position, Material* material);
+        Object(Material* material);
 
         /**
          * Calculate a ray-object intersection.
@@ -40,21 +39,10 @@ class Object {
          * Print object information.
          */
         virtual void info() = 0;
-
-        Vector3 getPosition();
-        //Vector3 getRotation();
         
         Material* getMaterial();
 
-        // Setters
-        void setPosition(Vector3 v);
-
-        //void setRotation(Vector3 v);
-
-
     protected:
-        Vector3 position;
-        //Vector3 rotation;
 
         Material* material;
 };

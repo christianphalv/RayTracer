@@ -4,20 +4,30 @@
 
 #include "Object.h"
 
-class Sphere: public Object {
+class Plane: public Object {
     public:
 
         /**
-         * Constructor for an sphere.
+         * Constructor for an plane.
          *
-         * @param material A pointer to sphere's material.
-         * @param position The center position of the sphere.
-         * @param radius The radius of the sphere.
+         * @param material A pointer to plane's material.
+         * @param v0 The 0th vertex.
+         * @param v1 The 1th vertex.
+         * @param v2 The 2th vertex.
          */
-        Sphere(Material* material, Vector3 position, float radius);
+        Plane(Material* material, Vector3 v0, Vector3 v1, Vector3 v2);
 
         /**
-         * Calculate a ray-sphere intersection.
+         * Constructor for an plane.
+         *
+         * @param material A pointer to plane's material.
+         * @param normal The normal of the plane.
+         * @param vertex A vertex in the plane.
+         */
+        Plane(Material* material, Vector3 normal, Vector3 vertex);
+
+        /**
+         * Calculate a ray-plane intersection.
          *
          * @param r The ray.
          * @param min The minimum intersection time.
@@ -36,15 +46,11 @@ class Sphere: public Object {
         Vector3 calculateNormal(Vector3 point) override;
 
         /**
-         * Print sphere information.
+         * Print plane information.
          */
         void info() override;
 
-        float getRadius();
-
-        void setRadius(float r);
-
     private:
-        Vector3 position;
-        float radius;
+        Vector3 normal;
+        float D;
 };

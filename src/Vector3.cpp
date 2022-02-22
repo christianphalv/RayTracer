@@ -14,7 +14,7 @@ Vector3::Vector3(float x, float y, float z) {
 }
 
 void Vector3::info() {
-    std::cout << this->x << ", " << this->y << ", " << this->z << "\n";
+    std::cout << "(" << this->x << ", " << this->y << ", " << this->z << ")\n";
 }
 
 Vector3 Vector3::copy() {

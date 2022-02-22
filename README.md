@@ -27,6 +27,7 @@ The input file requires specific syntax. Each command must be on its own line an
 * **mtlcolor** *albedoRed* *albedoGreen* *albedoBlue* *specularRed* *specularGreen* *specularBlue* *ambientK* *diffuseK* *specularK* *specularExponent* - Sets the material of the next object. Every object after this command will have this material until another material is set. (Colors and Ks must be numbers in range 0-1)
 * **sphere** *pos_x* *pos_y* *pos_y* *radius* - Creates a sphere.
 * **light** *source_x* *source_y* *source_z* *w* *red* *green* *blue* - Creates a directional light source if *w* is 0. Creates a point light source if *w* is 1.
+* **attlight** *source_x* *source_y* *source_z* *w* *red* *green* *blue* *c1* *c2* *c3* - Creates an attenuation light.
 
 ## Output File
 The output file will be generated as `output/input.ppm`, where `input` is the name of the input file. Output files are of type PPM, which requires a speciel program to view.
