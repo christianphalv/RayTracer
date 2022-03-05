@@ -3,8 +3,8 @@
 Scene::Scene(std::string inputFilename) {
 
     // Default settings
-    float min = -10000;
-    float max = 10000;
+    float min = -INFINITY;
+    float max = INFINITY;
     this->material = new Material();
 
     // Default camera variables
@@ -14,7 +14,8 @@ Scene::Scene(std::string inputFilename) {
 
     // Setup polygon objects
     std::vector<Vector3*> vertices;
-    std::vector<Vector3*> indices;
+    std::vector<Vector3*> vertexNormals;
+    std::vector<Index> indices;
     std::vector<Material*> triangleMats;
 
     // Open stream to input file
@@ -46,8 +47,8 @@ Scene::Scene(std::string inputFilename) {
             this->vfov = MathUtils::degreesToRadians(safeStreamFloat(iss, 0, 180));
 
         } else if (keyword.compare("imsize") == 0) {
-            this->imageWidth = safeStreamInt(iss, 0, max);
-            this->imageHeight = safeStreamInt(iss, 0, max);
+            this->imageWidth = safeStreamInt(iss, 0, INFINITY);
+            this->imageHeight = safeStreamInt(iss, 0, INFINITY);
 
         } else if (keyword.compare("bkgcolor") == 0) {
             this->bkgColor = safeStreamVector3(iss, 0, 1);
@@ -73,10 +74,86 @@ Scene::Scene(std::string inputFilename) {
             Vector3 v = safeStreamVector3(iss, min, max);
             vertices.push_back(new Vector3(v.getX(), v.getY(), v.getZ()));
 
+        } else if (keyword.compare("vn") == 0) {
+            Vector3 n = safeStreamVector3(iss, min, max);
+            vertexNormals.push_back(new Vector3(n.getX(), n.getY(), n.getZ()));
+
         } else if (keyword.compare("f") == 0) {
-            Vector3 f = safeStreamVector3(iss, min, max);
-            indices.push_back(new Vector3(f.getX(), f.getY(), f.getZ()));
-            triangleMats.push_back(this->material);
+            //Vector3 f = safeStreamVector3(iss, min, max);
+            //indices.push_back(new Vector3(f.getX(), f.getY(), f.getZ()));
+            //triangleMats.push_back(this->material);
+
+            // Retrieve the rest of the line
+            std::string rem(iss.str().substr(iss.tellg()));
+
+
+            // Initialize regex system
+            std::smatch match;
+            std::regex regTexAndNormals("([1-9]+)/([1-9]+)/([1-9]+) ([1-9]+)/([1-9]+)/([1-9]+) ([1-9]+)/([1-9]+)/([1-9]+)");
+            std::regex regTex("([1-9]+)/([1-9]+) ([1-9]+)/([1-9]+) ([1-9]+)/([1-9]+)");
+            std::regex regNormals("([1-9]+)//([1-9]+) ([1-9]+)//([1-9]+) ([1-9]+)//([1-9]+)");
+            
+            if (std::regex_search(rem, match, regTexAndNormals)) {
+
+                // 
+                int v1 = stoi(match[1].str());
+                int vt1 = stoi(match[2].str());
+                int vn1 = stoi(match[3].str());
+
+                int v2 = stoi(match[4].str());
+                int vt2 = stoi(match[5].str());
+                int vn2 = stoi(match[6].str());
+
+                int v3 = stoi(match[7].str());
+                int vt3 = stoi(match[8].str());
+                int vn3 = stoi(match[9].str());
+
+
+                
+            } else if (std::regex_search(rem, match, regTex)) {
+
+                // 
+                int v1 = stoi(match[1].str());
+                int vt1 = stoi(match[2].str());
+
+                int v2 = stoi(match[3].str());
+                int vt2 = stoi(match[4].str());
+
+                int v3 = stoi(match[5].str());
+                int vt3 = stoi(match[6].str());
+
+            } else if (std::regex_search(rem, match, regNormals)) {
+
+                // 
+                int v1 = stoi(match[1].str());
+                int vn1 = stoi(match[2].str());
+
+                int v2 = stoi(match[3].str());
+                int vn2 = stoi(match[4].str());
+
+                int v3 = stoi(match[5].str());
+                int vn3 = stoi(match[6].str());
+
+                Index index = Index();
+                index.vertices = Vector3(v1, v2, v3);
+                index.normals = Vector3(vn1, vn2, vn3);
+                indices.push_back(index);
+            }
+
+            
+
+/*
+            if (sscanf(rem.c_str(), "%d/%d/%d %d/%d/%d %d/%d/%d", v1, vt1, vn1, v2, vt2, vn2, v3, vt3, vn3) == 9) {
+                Vector3 v = Vector3(v1, v2, v3);
+                Vector3 vt = Vector3(vt1, vt2, vt3);
+                Vector3 vn = Vector3(vn1, vn2, vn3);
+                std::cout << "Index\n";
+                v.info();
+                std::cout << vt1 << "\n";
+                vt.info();
+                vn.info();
+            }
+            */
 
         } else if (keyword.compare("light") == 0) {
             Vector3 source = safeStreamVector3(iss, min, max);
@@ -110,27 +187,27 @@ Scene::Scene(std::string inputFilename) {
     // Instantiate triangles
     for (int i = 0; i < indices.size(); i++) {
 
-        // Retrieve triangle indices
-        int i0 = indices[i]->getX() - 1;
-        int i1 = indices[i]->getY() - 1;
-        int i2 = indices[i]->getZ() - 1;
+        // Retrieve triangle vertices
+        int iv0 = indices[i].normals.getX() - 1;
+        int iv1 = indices[i].normals.getY() - 1;
+        int iv2 = indices[i].normals.getZ() - 1;
 
         // Check if indices are valid
-        if (i0 >= vertices.size() || i1 >= vertices.size() || i2 >= vertices.size()) {
+        if (iv0 >= vertices.size() || iv1 >= vertices.size() || iv2 >= vertices.size()) {
             std::cout << "Error: Triangle index out of range. \n";
             exit(0);
         }
 
         // Retrieve triangle vertices
-        Vector3 v0 = vertices[i0]->copy();
-        Vector3 v1 = vertices[i1]->copy();
-        Vector3 v2 = vertices[i2]->copy();
+        Vector3 v0 = vertices[iv0]->copy();
+        Vector3 v1 = vertices[iv1]->copy();
+        Vector3 v2 = vertices[iv2]->copy();
 
         // Retrieve triangle material
         Material* m = triangleMats[i];
 
         // Instantiate triangle and add to objects
-        this->objects.push_back(new Triangle(m, v0, v1, v2));
+        this->objects.push_back(new FlatShadedTriangle(m, v0, v1, v2));
     }
 }
 

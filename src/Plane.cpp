@@ -3,13 +3,13 @@
 Plane::Plane(Material* material, Vector3 v0, Vector3 v1, Vector3 v2): Object(material) {
     Vector3 e1 = v1 - v0;
     Vector3 e2 = v2 - v0;
-    this->normal = cross(e1, e2);
+    this->normal = cross(e1, e2).normalized();
     this->D = -(this->normal.getX() * v0.getX() + this->normal.getY() * v0.getY() + this->normal.getZ() * v0.getZ());
 }
 
 Plane::Plane(Material* material, Vector3 normal, Vector3 vertex): Object(material) {
-    this->normal = normal;
-    this->D = -(normal.getX() * vertex.getX() + normal.getY() * vertex.getY() + normal.getZ() * vertex.getZ());
+    this->normal = normal.normalized();
+    this->D = -(this->normal.getX() * vertex.getX() + this->normal.getY() * vertex.getY() + this->normal.getZ() * vertex.getZ());
 }
 
 bool Plane::rayIntersect(Ray r, float min, float max, float& time) {

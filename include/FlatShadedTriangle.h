@@ -3,31 +3,23 @@
 #include <iostream>
 
 #include "Object.h"
+#include "Plane.h"
 
-class Plane: public Object {
+class FlatShadedTriangle: public Object {
     public:
 
         /**
-         * Constructor for an plane.
+         * Constructor for an triangle.
          *
-         * @param material A pointer to plane's material.
-         * @param v0 The 0th vertex.
-         * @param v1 The 1th vertex.
-         * @param v2 The 2th vertex.
+         * @param material A pointer to triangle's material.
+         * @param v0 The 0th triangle vertex.
+         * @param v1 The 1th triangle vertex.
+         * @param v2 The 2th triangle vertex.
          */
-        Plane(Material* material, Vector3 v0, Vector3 v1, Vector3 v2);
+        FlatShadedTriangle(Material* material, Vector3 v0, Vector3 v1, Vector3 v2);
 
         /**
-         * Constructor for an plane.
-         *
-         * @param material A pointer to plane's material.
-         * @param normal The normal of the plane.
-         * @param vertex A vertex in the plane.
-         */
-        Plane(Material* material, Vector3 normal, Vector3 vertex);
-
-        /**
-         * Calculate a ray-plane intersection.
+         * Calculate a ray-triangle intersection.
          *
          * @param r The ray.
          * @param min The minimum intersection time.
@@ -46,11 +38,14 @@ class Plane: public Object {
         Vector3 calculateNormal(Vector3 point) override;
 
         /**
-         * Print plane information.
+         * Print triangle information.
          */
         void info() override;
 
     private:
-        Vector3 normal;
-        float D;
+        Vector3 v0;
+        Vector3 v1;
+        Vector3 v2;
+
+        Plane* plane;
 };

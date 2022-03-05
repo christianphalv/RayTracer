@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <regex>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -9,6 +10,7 @@
 #include "AttenuationLight.h"
 #include "Camera.h"
 #include "DirectionalLight.h"
+#include "FlatShadedTriangle.h"
 #include "Light.h"
 #include "Material.h"
 #include "MathUtils.h"
@@ -17,7 +19,6 @@
 #include "PointLight.h"
 #include "Ray.h"
 #include "Sphere.h"
-#include "Triangle.h"
 #include "Vector3.h"
 
 #define PI 3.14159265
@@ -80,4 +81,9 @@ class Scene {
         Vector3 safeStreamVector3(std::istringstream& iss, float min, float max);
 
 
+};
+
+struct Index {
+    Vector3 vertices;
+    Vector3 normals;
 };
