@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "DirectionalLight.h"
 #include "FlatShadedTriangle.h"
+#include "Image.h"
 #include "Light.h"
 #include "Material.h"
 #include "MathUtils.h"
@@ -18,7 +19,12 @@
 #include "Plane.h"
 #include "PointLight.h"
 #include "Ray.h"
+#include "SmoothShadedTriangle.h"
 #include "Sphere.h"
+#include "TexturedFlatShadedTriangle.h"
+#include "TexturedSmoothShadedTriangle.h"
+#include "TexturedMaterial.h"
+#include "Vector2.h"
 #include "Vector3.h"
 
 #define PI 3.14159265
@@ -73,11 +79,13 @@ class Scene {
         int imageHeight;
         Vector3 bkgColor;
         Material* material;
+        Image* texture;
         std::vector<Object*> objects;
         std::vector<Light*> lights;
 
         float safeStreamFloat(std::istringstream& iss, float min, float max);
         int safeStreamInt(std::istringstream& iss, int min, int max);
+        Vector2 safeStreamVector2(std::istringstream& iss, float min, float max);
         Vector3 safeStreamVector3(std::istringstream& iss, float min, float max);
 
 

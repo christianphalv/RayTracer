@@ -40,6 +40,14 @@ class Sphere: public Object {
          */
         void info() override;
 
+        /**
+         * Calculate the albedo at a surface point.
+         *
+         * @param point The the surface point.
+         * @return albedo at the surface point.
+         */
+        Vector3 albedo(Vector3 point) override;
+
         float getRadius();
 
         void setRadius(float r);

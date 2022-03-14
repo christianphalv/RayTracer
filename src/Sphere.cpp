@@ -95,6 +95,28 @@ void Sphere::info() {
         << "Radius: " << this->radius << "\n";
 }
 
+Vector3 Sphere::albedo(Vector3 point) {
+
+    // Calculate the surface normal at the point
+    Vector3 N = calculateNormal(point);
+
+    // Calculate theta and phi
+    float theta = atan2(N.getY(), N.getX());
+    float phi = acos(N.getZ());
+
+    // Normalize theta to [0, 2 * PI]
+    if (theta < 0) {
+        theta += 2 * MathUtils::PI;
+    }
+
+    // Calculate the uv coordinates
+    float u = theta / (2 * MathUtils::PI);
+    float v = phi / MathUtils::PI;
+    Vector2 uv = Vector2(u, v);
+
+    return this->material->getAlbedo(uv);
+}
+
 float Sphere::getRadius() {
     return this->radius;
 }

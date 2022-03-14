@@ -39,8 +39,18 @@ class Object {
          * Print object information.
          */
         virtual void info() = 0;
+
+        /**
+         * Calculate the albedo at a surface point.
+         *
+         * @param point The the surface point.
+         * @return albedo at the surface point.
+         */
+        virtual Vector3 albedo(Vector3 point);
         
         Material* getMaterial();
+
+
 
     protected:
 

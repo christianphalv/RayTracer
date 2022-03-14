@@ -19,6 +19,10 @@ int main(int argc, char *argv[]) {
     // Initialize new scene from input file
     Scene* scene = new Scene(inputFileName);
 
+    // for (int i = 0; i < scene->getObjects().size(); i++) {
+    //     scene->getObjects()[i]->info();
+    // }
+
     // Instantiate image
     Image image = Image(scene->getImageWidth(), scene->getImageHeight());
 

@@ -25,7 +25,15 @@ The input file requires specific syntax. Each command must be on its own line an
 * **imsize** *width* *height* - Sets the image size in pixels. (Must be positive integers)
 * **bkgcolor** *red* *green* *blue* - Sets the background color of the image. (Must be numbers in range 0-1)
 * **mtlcolor** *albedoRed* *albedoGreen* *albedoBlue* *specularRed* *specularGreen* *specularBlue* *ambientK* *diffuseK* *specularK* *specularExponent* - Sets the material of the next object. Every object after this command will have this material until another material is set. (Colors and Ks must be numbers in range 0-1)
+* **texture** *texture.ppm* - Sets a textured material for the next objects.
 * **sphere** *pos_x* *pos_y* *pos_y* *radius* - Creates a sphere.
+* **v** *pos_x* *pos_y* *pos_y* - Creates a triangle vertex.
+* **vn** *n_x* *n_y* *n_z* - Creates a triangle normal.
+* **vt** *u* *v* - Texture coordinates of a vertex.
+* **f** *v_1* *v_2* *v_3* - Creates a triangle from three vertices.
+* **f** *v_1//vn_1* *v_2//vn_2* *v_3//vn_3* - Creates a smooth shaded triangle from three vertices and normals.
+* **f** *v_1/vt_1* *v_2/vt_2* *v_3/vt_3* - Creates a textured triangle from three vertices and texture coordinates.
+* **f** *v_1/vt_1/vn_1* *v_2/vt_2/vn_2* *v_3/vt_3/vn_3* - Creates a smooth shaded, textured triangle from three vertices, textures, and normals.
 * **light** *source_x* *source_y* *source_z* *w* *red* *green* *blue* - Creates a directional light source if *w* is 0. Creates a point light source if *w* is 1.
 * **attlight** *source_x* *source_y* *source_z* *w* *red* *green* *blue* *c1* *c2* *c3* - Creates an attenuation light.
 

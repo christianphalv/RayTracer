@@ -4,8 +4,9 @@
 
 #include "Object.h"
 #include "Plane.h"
+#include "Triangle.h"
 
-class SmoothShadedTriangle: public Object {
+class SmoothShadedTriangle: public Triangle {
     public:
 
         /**
@@ -22,17 +23,6 @@ class SmoothShadedTriangle: public Object {
         SmoothShadedTriangle(Material* material, Vector3 v0, Vector3 v1, Vector3 v2, Vector3 n0, Vector3 n1, Vector3 n2);
 
         /**
-         * Calculate a ray-triangle intersection.
-         *
-         * @param r The ray.
-         * @param min The minimum intersection time.
-         * @param max The maximum intersection time.
-         * @param time OUT The first intersection time.
-         * @return true if intersection, otherwise false.
-         */
-        bool rayIntersect(Ray r, float min, float max, float& time) override;
-
-        /**
          * Calculate the normal at a surface point.
          *
          * @param point The the surface point.
@@ -46,13 +36,8 @@ class SmoothShadedTriangle: public Object {
         void info() override;
 
     private:
-        Vector3 v0;
-        Vector3 v1;
-        Vector3 v2;
-
         Vector3 n0;
         Vector3 n1;
         Vector3 n2;
 
-        Plane* plane;
 };
