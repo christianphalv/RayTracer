@@ -30,7 +30,7 @@ namespace MathUtils {
      * @param hex The color in hexcode.
      * @return the color in RGB values.
      */
-    Vector3 hexToColor(int hex);
+    //Vector3 hexToColor(int hex);
 
     /**
      * Clamp a float to a minimum and maximum value.

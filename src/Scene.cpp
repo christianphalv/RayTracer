@@ -64,11 +64,13 @@ Scene::Scene(std::string inputFilename) {
             Vector3 mtlSpecular = safeStreamVector3(iss, 0, 1);
             Vector3 mtlK = safeStreamVector3(iss, 0, 1);
             float mtlN = safeStreamFloat(iss, 0, max);
+            float mtlOpacity = safeStreamFloat(iss, 0, max);
+            float mtlRefraction = safeStreamFloat(iss, 0, max);
 
             if (this->texture) {
-                this->material = new TexturedMaterial(this->texture, mtlSpecular, mtlK, mtlN);
+                this->material = new TexturedMaterial(this->texture, mtlSpecular, mtlK, mtlN, mtlOpacity, mtlRefraction);
             } else {
-                this->material = new Material(mtlAlbedo, mtlSpecular, mtlK, mtlN);
+                this->material = new Material(mtlAlbedo, mtlSpecular, mtlK, mtlN, mtlOpacity, mtlRefraction);
             }
 
         } else if (keyword.compare("texture") == 0) {
@@ -80,7 +82,7 @@ Scene::Scene(std::string inputFilename) {
             this->texture = new Image(path);
 
             if (this->material) {
-                this->material = new TexturedMaterial(this->texture, this->material->getSpecular(), this->material->getK(), this->material->getN());
+                this->material = new TexturedMaterial(this->texture, this->material->getSpecular(), this->material->getK(), this->material->getN(), 1, 1);
             }
             
         } else if (keyword.compare("sphere") == 0) {
@@ -299,7 +301,76 @@ Scene::Scene(std::string inputFilename) {
     this->hfov = 2.0 * atan((static_cast<float>(this->imageWidth) / static_cast<float>(this->imageHeight)) * tan(this->vfov / 2.0));
 }
 
-bool Scene::traceRay(Ray ray, float min, float max, float& time, Object*& object) {
+Vector3 Scene::traceRay(Ray ray) {
+    int maxRecursion = 10;
+    std::stack<int> materialStack;
+    materialStack.push(1);
+    Vector3 color = traceRayRecursive(ray, maxRecursion, 1);
+    return color;
+}
+
+Vector3 Scene::traceRayRecursive(Ray ray, int maxRecursion, float etaI) {
+
+    if (maxRecursion < 0) {
+        return Vector3(0, 0, 0);
+    }
+
+    // Trace ray for object intersections
+    float time;
+    Object* object;
+    if (this->castRay(ray, 0.001, INFINITY, time, object)) {
+
+        // Calculate intersection point
+        Vector3 point = ray.calculatePoint(time);
+
+        // Calculate surface normal at intersection point
+        Vector3 n = object->calculateNormal(point).normalized();
+
+        // Calculate Frenzel reflectance
+        Vector3 I = -ray.getDirection().normalized();
+        float alpha = n * I;
+        if (alpha < 0) {
+            n = -n;
+            alpha = n * I;
+        }
+        float etaT = object->getMaterial()->getRefraction();
+        float F0 = pow((etaT - 1) / (etaT + 1), 2);
+        float Fr = F0 + ((1 - F0) * pow(1 - alpha, 5));
+
+        // Calculate illumination from object intersection point
+        Vector3 illumination = this->shadeRay(ray, point, object);
+
+        // Recursively calculate reflection
+        Ray R = Ray(point, 2 * alpha * n - I);
+        Vector3 reflection = Fr * this->traceRayRecursive(R, maxRecursion - 1, etaI);
+
+        // Reset etaT to 1 if exiting material
+        if (etaI == etaT) {
+            etaT = 1;
+        }
+
+        // Recursively calculate refraction
+        Vector3 refraction = Vector3(0, 0, 0);
+        float discriminant = 1 - (pow(etaI / etaT, 2) * (1 - pow(alpha, 2)));
+        if (discriminant >= 0) {
+            Vector3 TDir = ((-n * sqrt(discriminant)) + ((etaI / etaT) * ((alpha * n) - I))).normalized();
+            Ray T = Ray(point, TDir);
+            refraction = (1 - Fr) * (1 - object->getMaterial()->getOpacity()) * this->traceRayRecursive(T, maxRecursion - 1, etaT);
+
+        }
+
+        // Set pixel to shaded intersection point
+        Vector3 color = (illumination + reflection + refraction).clamped(0, 1);
+        return color;
+
+    } else {
+
+        // Set pixel to background color if no intersecion
+        return this->getBackgroundColor();
+    }
+}
+
+bool Scene::castRay(Ray ray, float min, float max, float& time, Object*& object) {
     
     // Initialize nearest object storage
     time = max;
@@ -353,8 +424,6 @@ Vector3 Scene::shadeRay(Ray ray, Vector3 point, Object* object) {
 
         // Initialize shadow parameters
         Ray shadowRay = Ray(point, L);
-        float shadowTime;
-        Object* shadowObject;
 
         // Set maximum time
         float max;
@@ -364,26 +433,46 @@ Vector3 Scene::shadeRay(Ray ray, Vector3 point, Object* object) {
             max = (light->source - point).length();
         }
 
-        // Check if the point is in a shadow
-        if (!traceRay(shadowRay, 0.001, max, shadowTime, shadowObject)) {
+        // Calculate shadow flag
+        float shadowFlag = this->shadowFlag(shadowRay, 0.001, max);
+        
+        // Calculate H
+        Vector3 H = (L + -ray.getDirection()).normalized();
+        //Vector3 H = (L + (point - this->cam->getEye()).normalized()).normalized();
 
-            // Calculate H
-            Vector3 H = (L + -ray.getDirection()).normalized();
+        // Calculare diffuse component
+        Vector3 diffuse = mat->getK().getY() * object->albedo(point) * MathUtils::clamp((N * L), 0, 1);
 
-            // Calculare diffuse component
-            Vector3 diffuse = mat->getK().getY() * object->albedo(point) * MathUtils::clamp((N * L), 0, 1);
+        // Calculate specular component
+        Vector3 specular = mat->getK().getZ() * mat->getSpecular() * pow(MathUtils::clamp(N * H, 0, 1), mat->getN());
 
-            // Calculate specular component
-            Vector3 specular = mat->getK().getZ() * mat->getSpecular() * pow(MathUtils::clamp(N * H, 0, 1), mat->getN());
-
-            // Add diffuse and specular components to illumination
-            Vector3 ds = diffuse + specular;
-            Vector3 hue = this->lights[i]->calculateHue(point);
-            illumination = illumination + Vector3(ds.getX() * hue.getX(), ds.getY() * hue.getY(), ds.getZ() * hue.getZ());
-        }
+        // Add diffuse and specular components to illumination
+        Vector3 ds = diffuse + specular;
+        Vector3 hue = this->lights[i]->calculateHue(point);
+        illumination = illumination + shadowFlag * Vector3(ds.getX() * hue.getX(), ds.getY() * hue.getY(), ds.getZ() * hue.getZ());
     }
 
     return illumination;
+}
+
+float Scene::shadowFlag(Ray ray, float min, float max) {
+
+    // Initialize shadow flag
+    float S = 1;
+
+    // Loop through each object in the scene
+    for (int i = 0; i < this->getObjects().size(); i++) {
+
+        // Check ray-object intersection
+        float t;
+        if (this->getObjects()[i]->rayIntersect(ray, min, max, t)) {
+
+            // Incorporate object's opacity to shadow flag
+            S = S * (1 - this->getObjects()[i]->getMaterial()->getOpacity());
+        }
+    }
+
+    return S;
 }
 
 Camera* Scene::getCamera() {

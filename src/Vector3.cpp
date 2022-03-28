@@ -29,6 +29,10 @@ Vector3 Vector3::normalized() {
     return this->copy() / this->length();
 }
 
+Vector3 Vector3::clamped(float min, float max) {
+    return Vector3(MathUtils::clamp(this->x, min, max), MathUtils::clamp(this->y, min, max), MathUtils::clamp(this->z, min, max));
+}
+
 // Getters
 float Vector3::getX() {
     return this->x;

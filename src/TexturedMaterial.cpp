@@ -4,7 +4,7 @@ TexturedMaterial::TexturedMaterial(Image* texture): Material() {
     this->texture = texture;
 }
 
-TexturedMaterial::TexturedMaterial(Image* texture, Vector3 specular, Vector3 K, float N): Material(Vector3(0, 0, 0), specular, K, N) {
+TexturedMaterial::TexturedMaterial(Image* texture, Vector3 specular, Vector3 K, float N, float opacity, float refraction): Material(Vector3(0, 0, 0), specular, K, N, opacity, refraction) {
     this->texture = texture;
 }
 

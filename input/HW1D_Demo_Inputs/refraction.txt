@@ -1,0 +1,18 @@
+vfov 60
+imsize 500 500
+eye 0 0 5
+viewdir 0 0 -1
+updir 0 1 0
+bkgcolor 0 0 0
+light 0 3 1 1 0.6 0.6 0.6
+
+mtlcolor 1 1 1 0.5 0.5 0.5 0.02 0.05 0.2 10 0.1 1.5
+sphere 1 1 0 1
+mtlcolor 1 1 1 0.5 0.5 0.5 0.02 0.05 0.2 10 1 1.1
+sphere 1 -1 0 1
+mtlcolor 1 1 1 0.5 0.5 0.5 0.02 0.05 0.2 10 0.5 1.1
+sphere -1 0 0 1
+
+mtlcolor 1 1 1 0.5 0.5 0.5 1 1 1 20 1 1.5
+texture input/world.ppm
+sphere 0 0 -10 8

@@ -5,13 +5,17 @@ Material::Material() {
     this->specular = Vector3(0.0, 0.0, 0.0);
     this->K = Vector3(1.0, 0.0, 0.0);
     this->N = 0.0;
+    this->opacity = 1;
+    this->refraction = 1;
 }
 
-Material::Material(Vector3 albedo, Vector3 specular, Vector3 K, float N) {
+Material::Material(Vector3 albedo, Vector3 specular, Vector3 K, float N, float opacity, float refraction) {
     this->albedo = albedo;
     this->specular = specular;
     this->K = K;
     this->N = N;
+    this->opacity = opacity;
+    this->refraction = refraction;
 }
 
 Vector3 Material::phongShade(Vector3 N, Vector3 L, Vector3 H) {
@@ -43,4 +47,11 @@ Vector3 Material::getK() {
 
 float Material::getN() {
     return this->N;
+}
+
+float Material::getOpacity() {
+    return this->opacity;
+}
+float Material::getRefraction() {
+    return this->refraction;
 }

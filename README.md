@@ -24,10 +24,11 @@ The input file requires specific syntax. Each command must be on its own line an
 * **vfov** *fov_v* - Sets the vertical field of view in degrees.
 * **imsize** *width* *height* - Sets the image size in pixels. (Must be positive integers)
 * **bkgcolor** *red* *green* *blue* - Sets the background color of the image. (Must be numbers in range 0-1)
-* **mtlcolor** *albedoRed* *albedoGreen* *albedoBlue* *specularRed* *specularGreen* *specularBlue* *ambientK* *diffuseK* *specularK* *specularExponent* - Sets the material of the next object. Every object after this command will have this material until another material is set. (Colors and Ks must be numbers in range 0-1)
+* **mtlcolor** *albedoRed* *albedoGreen* *albedoBlue* *specularRed* *specularGreen* *specularBlue* *ambientK* *diffuseK* *specularK* *specularExponent* *opacity* *indexOfRefraction* - Sets the material of the next object. Every object after this command will have this material until another material is set. (Colors and Ks must be numbers in range 0-1)
 * **texture** *texture.ppm* - Sets a textured material for the next objects.
-* **sphere** *pos_x* *pos_y* *pos_y* *radius* - Creates a sphere.
-* **v** *pos_x* *pos_y* *pos_y* - Creates a triangle vertex.
+* **plane** *n_x* *n_y* *n_z* *pos_x* *pos_y* *pos_z* - Creates a plane.
+* **sphere** *pos_x* *pos_y* *pos_z* *radius* - Creates a sphere.
+* **v** *pos_x* *pos_y* *pos_z* - Creates a triangle vertex.
 * **vn** *n_x* *n_y* *n_z* - Creates a triangle normal.
 * **vt** *u* *v* - Texture coordinates of a vertex.
 * **f** *v_1* *v_2* *v_3* - Creates a triangle from three vertices.

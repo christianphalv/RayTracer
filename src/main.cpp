@@ -55,25 +55,31 @@ int main(int argc, char *argv[]) {
             Vector3 rayDirection = pixelPoint - cam->getEye();
             Ray ray = Ray(cam->getEye(), rayDirection);
 
-            // Trace ray for object intersections
-            float time;
-            Object* object;
-            if (scene->traceRay(ray, 0, INFINITY, time, object)) {
+            // 
+            //std::cout << i << " " << j << "\n";
+            //std::cout << "BEFORE\n";
+            image.setPixel(i, j, scene->traceRay(ray));
+            //std::cout << "After\n";
 
-                // Set pixel to shaded intersection point
-                Vector3 color = scene->shadeRay(ray, ray.calculatePoint(time), object);
-                image.setPixel(i, j, color);
+            // // Trace ray for object intersections
+            // float time;
+            // Object* object;
+            // if (scene->traceRay(ray, 0, INFINITY, time, object)) {
 
-            } else {
+            //     // Set pixel to shaded intersection point
+            //     Vector3 color = scene->shadeRay(ray, ray.calculatePoint(time), object);
+            //     image.setPixel(i, j, color);
 
-                // Set pixel to background color if no intersecion
-                image.setPixel(i, j, scene->getBackgroundColor());
-            }
+            // } else {
+
+            //     // Set pixel to background color if no intersecion
+            //     image.setPixel(i, j, scene->getBackgroundColor());
+            // }
 
         }
 
         // Display progress
-        std::cout << "\r" << static_cast<int>(static_cast<float>(i) / static_cast<float>(image.getWidth()) * 100) << "%";
+        //std::cout << "\r" << static_cast<int>(static_cast<float>(i) / static_cast<float>(image.getWidth()) * 100) << "%";
     }
 
     // Display 100%

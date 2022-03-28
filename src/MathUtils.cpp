@@ -8,19 +8,19 @@ float MathUtils::degreesToRadians(float degrees) {
     return degrees * (PI / 180);
 }
 
-Vector3 MathUtils::hexToColor(int hex) {
+// Vector3 MathUtils::hexToColor(int hex) {
 
-    // Declare r g b values
-    int r, g, b;
+//     // Declare r g b values
+//     int r, g, b;
 
-    // Extract r g b values from hex
-    r = ((hex >> 16) & 0xFF) / 255.0;
-    g = ((hex >> 8) & 0xFF) / 255.0;
-    b = ((hex) & 0xFF) / 255.0;
+//     // Extract r g b values from hex
+//     r = ((hex >> 16) & 0xFF) / 255.0;
+//     g = ((hex >> 8) & 0xFF) / 255.0;
+//     b = ((hex) & 0xFF) / 255.0;
 
-    // Return color
-    return Vector3(r, b, g);
-}
+//     // Return color
+//     return Vector3(r, b, g);
+// }
 
 float MathUtils::clamp(float x, float min, float max) {
     if (x < min) {

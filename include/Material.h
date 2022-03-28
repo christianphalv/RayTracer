@@ -23,7 +23,7 @@ class Material {
          * @param K A vector containing the K values ka, kd, ks of the material.
          * @param N The specular intensity of the material.
          */
-        Material(Vector3 albedo, Vector3 specular, Vector3 K, float N);
+        Material(Vector3 albedo, Vector3 specular, Vector3 K, float N, float opacity, float refraction);
 
         /**
          * Calculate shading of a point using the phong-blinn illumination model.
@@ -38,11 +38,15 @@ class Material {
         virtual Vector3 getAlbedo(Vector2 uv);
         Vector3 getSpecular();
         Vector3 getK();
-        float getN();       
+        float getN();
+        float getOpacity();
+        float getRefraction();
 
     private:
         Vector3 albedo;
         Vector3 specular;
         Vector3 K;
         float N;
+        float opacity;
+        float refraction;
 };

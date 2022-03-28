@@ -4,6 +4,7 @@
 #include <fstream>
 #include <regex>
 #include <sstream>
+#include <stack>
 #include <string>
 #include <vector>
 
@@ -51,7 +52,12 @@ class Scene {
          * @param object OUT The nearest intesected object.
          * @return true if intersection, otherwise false.
          */
-        bool traceRay(Ray ray, float min, float max, float& time, Object*& object);
+        bool castRay(Ray ray, float min, float max, float& time, Object*& object);
+
+        Vector3 traceRay(Ray ray);
+
+        Vector3 traceRayRecursive(Ray ray, int maxRecursion, float etaI);
+        //Vector3 traceRayRecursive(Ray ray, int maxRecursion, std::stack<int>& materialStack);
 
         /**
          * Shade the pixel based on the Phong-Blinn illumination model.
@@ -61,6 +67,8 @@ class Scene {
          * @return color of the shaded pixel.
          */
         Vector3 shadeRay(Ray ray, Vector3 point, Object* object);
+
+        float shadowFlag(Ray ray, float min, float max);
 
         Camera* getCamera();
         float getVerticalFov();

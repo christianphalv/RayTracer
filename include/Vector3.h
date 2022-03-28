@@ -3,6 +3,8 @@
 #include <iostream>
 #include <math.h>
 
+#include "MathUtils.h"
+
 class Vector3 {
     public:
 
@@ -48,6 +50,13 @@ class Vector3 {
          * @return the normalized Vector3.
          */
         Vector3 normalized();
+
+        /**
+         * Clamps each component of a Vector3.
+         *
+         * @return the clamped Vector3.
+         */
+        Vector3 clamped(float min, float max);
 
         float getX();
         float getY();

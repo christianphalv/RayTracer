@@ -24,7 +24,7 @@ class TexturedMaterial : public Material {
          * @param K A vector containing the K values ka, kd, ks of the material.
          * @param N The specular intensity of the material.
          */
-        TexturedMaterial(Image* texture, Vector3 specular, Vector3 K, float N);
+        TexturedMaterial(Image* texture, Vector3 specular, Vector3 K, float N, float opacity, float refraction);
 
         /**
          * Calculate shading of a point using the phong-blinn illumination model.
