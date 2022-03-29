@@ -5,6 +5,7 @@ This program reads a scene from an input file and renders the scene using a rayt
 
 <p float="left">
     <img src="images/reflectionOrbs.png" height="200">
+    <img src="images/refraction.png" height="200">
     <img src="images/recursiveTextures.png" height="200">
     <img src="images/spiral.png" height="200">
     <img src="images/flatSpiral.png" height="200">
