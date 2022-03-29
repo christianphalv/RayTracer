@@ -3,6 +3,13 @@ This program reads a scene from an input file and renders the scene using a rayt
 * Author: Christian Halvorson
 * Date: 2/4/2022
 
+<p float="left">
+    <img src="images/reflectionOrbs.png" height="200">
+    <img src="images/recursiveTextures.png" height="200">
+    <img src="images/spiral.png" height="200">
+    <img src="images/flatSpiral.png" height="200">
+</p>
+
 # Specifications
 
 ## Make
